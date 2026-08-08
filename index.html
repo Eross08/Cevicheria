@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Esquina de Augusto | Cevichería en La Perla, Callao</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700;9..144,900&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/js/all.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+</head>
+<body class="antialiased">
+
+<!-- NAV -->
+<header class="sticky top-0 z-40 backdrop-blur bg-[var(--cream)]/90 border-b border-black/5">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <i class="fa-solid fa-fish text-[var(--coral)] text-xl"></i>
+      <span class="font-display font-700 text-2xl tracking-tight" style="font-weight:700;">La Esquina de Augusto</span>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 text-sm font-medium" aria-label="Navegación principal">
+      <a href="#entradas" class="nav-link">Entradas</a>
+      <a href="#platos" class="nav-link">Platos</a>
+      <a href="#bebidas" class="nav-link">Bebidas</a>
+      <a href="#pagos" class="nav-link">Pagos</a>
+      <a href="#reservar" class="nav-link">Reservas</a>
+    </nav>
+    <button id="mobile-menu-toggle" type="button" class="mobile-menu-toggle" aria-controls="mobile-nav" aria-expanded="false" aria-label="Abrir menú">
+      <i class="fa-solid fa-bars" aria-hidden="true"></i>
+    </button>
+    <button id="cart-toggle" type="button" class="cart-button" aria-controls="cart-panel" aria-expanded="false">
+      <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
+      <span>Carrito</span><span id="cart-count" class="cart-count">0</span>
+    </button>
+    <a id="wa-nav" href="#" target="_blank" rel="noopener"
+       class="whatsapp-btn text-white text-sm font-semibold px-4 py-2 rounded-full flex items-center gap-2"
+       aria-label="Reservar por WhatsApp">
+      <i class="fa-brands fa-whatsapp"></i> Reservar
+    </a>
+  </div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Navegación móvil" hidden>
+    <a href="#entradas" class="nav-link">Entradas</a>
+    <a href="#platos" class="nav-link">Platos</a>
+    <a href="#bebidas" class="nav-link">Bebidas</a>
+    <a href="#pagos" class="nav-link">Pagos</a>
+    <a href="#reservar" class="nav-link">Reservas</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="relative overflow-hidden text-[var(--cream)]" style="background:linear-gradient(160deg, var(--ocean) 0%, #0A2C3A 100%);">
+  <div class="hero-texture absolute inset-0"></div>
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-24 md:pt-24 md:pb-32 relative z-10 grid md:grid-cols-2 gap-10 items-center">
+    <div data-aos="fade-up">
+      <p class="eyebrow mb-4">La Perla · Callao · Cocina marina</p>
+      <h1 class="font-display leading-[0.95] text-5xl sm:text-6xl md:text-7xl font-900" style="font-weight:900;">
+        Ceviche recién<br> cortado, <span style="color:var(--lime);">al toque.</span>
+      </h1>
+      <p class="mt-6 text-lg text-[var(--cream)]/80 max-w-md">
+        Pescado del día, leche de tigre bien picante y la sazón de siempre.
+        Reserva tu mesa por WhatsApp en menos de un minuto.
+      </p>
+
+      <div class="mt-8 flex flex-wrap items-center gap-4">
+        <a id="wa-hero" href="#" target="_blank" rel="noopener"
+           class="whatsapp-btn text-white font-semibold px-6 py-3.5 rounded-full flex items-center gap-3 text-base">
+          <i class="fa-brands fa-whatsapp text-xl"></i> Reservar por WhatsApp
+        </a>
+        <a href="#platos" class="text-sm font-semibold underline underline-offset-4 decoration-[var(--coral)]">Ver la carta</a>
+      </div>
+
+      <div class="mt-10 flex items-center gap-6 text-sm text-[var(--cream)]/70">
+        <div class="flex items-center gap-2"><i class="fa-regular fa-clock"></i> Lun–Dom · 11:00 AM–5:30 PM</div>
+      </div>
+    </div>
+
+    <div class="relative" data-aos="fade-left" data-aos-delay="150">
+      <div class="rounded-2xl overflow-hidden ticket-edge shadow-2xl rotate-1">
+        <img src="platos-img/ceviche.jpg" width="1200" height="800"
+             alt="Ceviche peruano servido en un plato" class="w-full h-[420px] object-cover" decoding="async">
+      </div>
+      <div class="absolute -bottom-5 -left-5 bg-[var(--coral)] text-white font-display font-700 rounded-xl px-5 py-3 shadow-xl -rotate-2 text-sm" style="font-weight:700;">
+        100% pescado del día
+      </div>
+    </div>
+  </div>
+
+  <svg class="wave-divider" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,30 C150,60 300,0 450,30 C600,60 750,0 900,30 C1050,60 1150,15 1200,30 L1200,60 L0,60 Z" fill="#FBF6EC"/>
+  </svg>
+</section>
+
+<!-- ENTRADAS -->
+<section id="entradas" class="max-w-6xl mx-auto px-5 sm:px-8 py-16 md:py-20">
+  <div class="mb-10" data-aos="fade-up">
+    <p class="eyebrow mb-2">Para arrancar</p>
+    <h2 class="font-display text-4xl md:text-5xl font-700" style="font-weight:700;">Entradas</h2>
+  </div>
+  <div id="entradas-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5"></div>
+</section>
+
+<!-- ESPECIALIDADES -->
+<section id="especialidades" class="max-w-6xl mx-auto px-5 sm:px-8 py-16 md:py-20">
+  <div class="mb-10" data-aos="fade-up">
+    <p class="eyebrow mb-2">Nuestras especialidades</p>
+    <h2 class="font-display text-4xl md:text-5xl font-700" style="font-weight:700;">Platos estrella del chef</h2>
+    <p class="mt-3 text-sm text-[var(--ink)]/70 max-w-2xl">Descubre nuestros platos más pedidos, preparados con ingredientes frescos y la sazón de la costa peruana.</p>
+  </div>
+<!-- PLATOS DESTACADOS -->
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="menu-card rounded-2xl overflow-hidden" data-aos="fade-up">
+      <img src="platos-especialidades-img/caracoles.jpg" width="800" height="320" alt="Caracoles a la Piedra" class="menu-card-image w-full h-48 object-cover" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='platos-img/ceviche.jpg';">
+      <div class="p-5">
+        <div class="flex items-start justify-between gap-3">
+          <h3 class="font-display text-xl font-600" style="font-weight:600;">Caracoles a la Piedra</h3>
+          <span class="price-tag shrink-0">S/ 38.00</span>
+        </div>
+        <p class="text-sm text-[var(--ink)]/60 mt-2">Nuestro plato bandera, al estilo de siempre</p>
+        <button type="button" class="add-to-cart menu-action mt-4" data-type="especialidad" data-name="Caracoles a la Piedra" data-price="38">Agregar al carrito</button>
+      </div>
+    </div>
+
+    <div class="menu-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="80">
+      <img src="platos-especialidades-img/pulpo-navarra.jpeg" width="800" height="320" alt="Pulpo a la Navarra" class="menu-card-image w-full h-48 object-cover" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='platos-img/ceviche.jpg';">
+      <div class="p-5">
+        <div class="flex items-start justify-between gap-3">
+          <h3 class="font-display text-xl font-600" style="font-weight:600;">Pulpo a la Navarra</h3>
+          <span class="price-tag shrink-0">S/ 45.00</span>
+        </div>
+        <p class="text-sm text-[var(--ink)]/60 mt-2">Suave pulpo en aceite de olivo, orégano y vinagre acompañado de palta, tomates y galletas</p>
+        <button type="button" class="add-to-cart menu-action mt-4" data-type="especialidad" data-name="Pulpo a la Navarra" data-price="45">Agregar al carrito</button>
+      </div>
+    </div>
+
+    <div class="menu-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="160">
+      <img src="platos-especialidades-img/causa.jpg" width="800" height="320" alt="Causa Marinera" class="menu-card-image w-full h-48 object-cover" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='platos-img/ceviche.jpg';">
+      <div class="p-5">
+        <div class="flex items-start justify-between gap-3">
+          <h3 class="font-display text-xl font-600" style="font-weight:600;">Causa Marinera</h3>
+          <span class="price-tag shrink-0">S/ 35.00</span>
+        </div>
+        <p class="text-sm text-[var(--ink)]/60 mt-2">Con camarones y pulpa de cangrejo</p>
+        <button type="button" class="add-to-cart menu-action mt-4" data-type="especialidad" data-name="Causa Marinera" data-price="35">Agregar al carrito</button>
+      </div>
+    </div>
+
+    <div class="menu-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="160">
+      <img src="platos-especialidades-img/tempura-langostinos.jpg" width="800" height="320" alt="Tempura de Langostinos" class="menu-card-image w-full h-48 object-cover" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='platos-img/ceviche.jpg';">
+      <div class="p-5">
+        <div class="flex items-start justify-between gap-3">
+          <h3 class="font-display text-xl font-600" style="font-weight:600;">Tempura de Langostinos</h3>
+          <span class="price-tag shrink-0">S/ 50.00</span>
+        </div>
+        <p class="text-sm text-[var(--ink)]/60 mt-2">Delicioso arrebozado al estilo japonés, servido con salsa de soja</p>
+        <button type="button" class="add-to-cart menu-action mt-4" data-type="especialidad" data-name="Tempura de Langostinos" data-price="50">Agregar al carrito</button>
+      </div>
+    </div>
+
+    <div class="menu-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="160">
+      <img src="platos-img/arrozconmariscos.png" width="800" height="320" alt="Aji Enchilado" class="menu-card-image w-full h-48 object-cover" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='platos-img/ceviche.jpg';">
+      <div class="p-5">
+        <div class="flex items-start justify-between gap-3">
+          <h3 class="font-display text-xl font-600" style="font-weight:600;">Aji Enchilado</h3>
+          <span class="price-tag shrink-0">S/ 50.00</span>
+        </div>
+        <p class="text-sm text-[var(--ink)]/60 mt-2">Relleno con Kamaboko, langostinos y verduras salteadas</p>
+        <button type="button" class="add-to-cart menu-action mt-4" data-type="especialidad" data-name="Aji Enchilado" data-price="50">Agregar al carrito</button>
+      </div>
+    </div>
+
+    <div class="menu-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="160">
+      <img src="platos-img/arrozconmariscos.png" width="800" height="320" alt="Arroz con mariscos" class="menu-card-image w-full h-48 object-cover" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='platos-img/ceviche.jpg';">
+      <div class="p-5">
+        <div class="flex items-start justify-between gap-3">
+          <h3 class="font-display text-xl font-600" style="font-weight:600;">Shitake relleno con Kamaboko y Mariscos</h3>
+          <span class="price-tag shrink-0">S/ 50.00</span>
+        </div>
+        <p class="text-sm text-[var(--ink)]/60 mt-2">Fusión nikkei, de hongos japoneses y un jamón de pescado con nuestros frutos de mar</p>
+        <button type="button" class="add-to-cart menu-action mt-4" data-type="especialidad" data-name="Shitake relleno con Kamaboko y Mariscos" data-price="50">Agregar al carrito</button>
+      </div>
+    </div>
+
+    <div class="menu-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="160">
+      <img src="" width="800" height="320" alt="Filete de Lenguado en Salsa de Vino Tinto" class="menu-card-image w-full h-48 object-cover" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='platos-img/ceviche.jpg';">
+      <div class="p-5">
+        <div class="flex items-start justify-between gap-3">
+          <h3 class="font-display text-xl font-600" style="font-weight:600;">Filete de Lenguado en Salsa de Vino Tinto</h3>
+          <span class="price-tag shrink-0">S/ 50.00</span>
+        </div>
+        <p class="text-sm text-[var(--ink)]/60 mt-2">Servido con Arroz blanco</p>
+        <button type="button" class="add-to-cart menu-action mt-4" data-type="especialidad" data-name="Filete de Lenguado en Salsa de Vino Tinto" data-price="50">Agregar al carrito</button>
+      </div>
+    </div>
+
+    <div class="menu-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="160">
+      <img src="platos-especialidades-img/filete-napolitana.jpg" width="800" height="320" alt="Filete de Lenguado a la Napolitana" class="menu-card-image w-full h-48 object-cover" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='platos-img/ceviche.jpg';">
+      <div class="p-5">
+        <div class="flex items-start justify-between gap-3">
+          <h3 class="font-display text-xl font-600" style="font-weight:600;">Filete de Lenguado a la Napolitana</h3>
+          <span class="price-tag shrink-0">S/ 50.00</span>
+        </div>
+        <p class="text-sm text-[var(--ink)]/60 mt-2">Con colitas de camarón o langostino</p>
+        <button type="button" class="add-to-cart menu-action mt-4" data-type="especialidad" data-name="Filete de Lenguado a la Napolitana" data-price="50">Agregar al carrito</button>
+      </div>
+    </div>
+
+    <div class="menu-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="160">
+      <img src="platos-img/arrozconmariscos.png" width="800" height="320" alt="Kamaboko Relleno" class="menu-card-image w-full h-48 object-cover" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='platos-img/ceviche.jpg';">
+      <div class="p-5">
+        <div class="flex items-start justify-between gap-3">
+          <h3 class="font-display text-xl font-600" style="font-weight:600;">Kamaboko Relleno</h3>
+          <span class="price-tag shrink-0">S/ 50.00</span>
+        </div>
+        <p class="text-sm text-[var(--ink)]/60 mt-2">Pasta o jamón de pescado, presentado en nuestras salsas</p>
+        <button type="button" class="add-to-cart menu-action mt-4" data-type="especialidad" data-name="Kamaboko Relleno" data-price="50">Agregar al carrito</button>
+      </div>
+    </div>
+
+    <div class="menu-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="160">
+      <img src="platos-especialidades-img/filete-pescado.jpg" width="800" height="320" alt="Filete Frito" class="menu-card-image w-full h-48 object-cover" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='platos-img/ceviche.jpg';">
+      <div class="p-5">
+        <h3 class="font-display text-xl font-600" style="font-weight:600;">Filete Frito, apanado o a la plancha</h3>
+        <div class="mt-3">
+          <label class="text-sm font-semibold block mb-2" style="color:var(--ink);">Elige la salsa:</label>
+          <select class="filete-sauce-select w-full border border-[var(--ink)]/20 rounded-lg p-2 text-sm" style="font-family:'Work Sans',sans-serif;">
+            <option value="45|Ah-Gusto">Ah-Gusto - S/ 45.00</option>
+            <option value="50|Napolitana">Napolitana Especial- S/ 50.00</option>
+            <option value="40|Cantón o con Pulpa de Cangrejo">Cantón o con Pulpa de Cangrejo - S/ 40.00</option>
+            <option value="36|Champiñones">Champiñones - S/ 36.00</option>
+            <option value="36|Al Ajo o Ajillo">Al Ajo o Ajillo - S/ 36.00</option>
+            <option value="36|Al Durazno">Al Durazno - S/ 36.00</option>
+            <option value="38|Al Vino con Champiñones">Al Vino con Champiñones - S/ 38.00</option>
+            <option value="38|Al Tausí con Frijolitos Chinos">Al Tausí con Frijolitos Chinos - S/ 38.00</option>
+            <option value="36|Al Vapor con Verduras">Al Vapor con Verduras - S/ 36.00</option>
+            <option value="38|Al Ostión con Champiñones">Al Ostión con Champiñones - S/ 38.00</option>
+          </select>
+        </div>
+        <div class="flex items-center justify-between gap-3 mt-4">
+          <span class="filete-price price-tag shrink-0">S/ 36.00</span>
+          <button type="button" class="add-filete-cart menu-action" data-type="especialidad" data-base-name="Filete Frito">Agregar al carrito</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="160">
+      <img src="platos-especialidades-img/Parihuela.jpg" width="800" height="320" alt="Parihuelas" class="menu-card-image w-full h-48 object-cover" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='platos-img/ceviche.jpg';">
+      <div class="p-5">
+        <div class="flex items-start justify-between gap-3">
+          <h3 class="font-display text-xl font-600" style="font-weight:600;">Parihuelas</h3>
+          <span class="price-tag shrink-0">S/ 40.00</span>
+        </div>
+        <p class="text-sm text-[var(--ink)]/60 mt-2">Guiso marino tradicional cocinado al vapor en su propio jugo con cebolla, tomate, ají amarillo y chicha de jora.</p>
+        <button type="button" class="add-to-cart menu-action mt-4" data-type="especialidad" data-name="Parihuelas" data-price="40">Agregar al carrito</button>
+      </div>
+    </div>
+
+    <div class="menu-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="160">
+      <img src="platos-especialidades-img/Sudado.jpg" width="800" height="320" alt="Sudado" class="menu-card-image w-full h-48 object-cover" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='platos-img/ceviche.jpg';">
+      <div class="p-5">
+        <div class="flex items-start justify-between gap-3">
+          <h3 class="font-display text-xl font-600" style="font-weight:600;">Sudado</h3>
+          <span class="price-tag shrink-0">S/ 36.00</span>
+        </div>
+         <p class="text-sm text-[var(--ink)]/60 mt-2">Guiso marino tradicional cocinado al vapor en su propio jugo con cebolla, tomate, ají amarillo y chicha de jora.</p>
+        <button type="button" class="add-to-cart menu-action mt-4" data-type="especialidad" data-name="Sudado" data-price="36">Agregar al carrito</button>
+      </div>
+    </div>
+
+    <div class="menu-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="160">
+      <img src="platos-especialidades-img/chupe.jpg" width="800" height="320" alt="Chupe" class="menu-card-image w-full h-48 object-cover" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='platos-img/ceviche.jpg';">
+      <div class="p-5">
+        <div class="flex items-start justify-between gap-3">
+          <h3 class="font-display text-xl font-600" style="font-weight:600;">Chupe</h3>
+          <span class="price-tag shrink-0">S/ 40.00</span>
+        </div>
+        <p class="text-sm text-[var(--ink)]/60 mt-2">Concentrado potente y reconfortante de la pesca del día y mariscos variados (pulpo, calamar, langostinos y conchas)</p>
+        <button type="button" class="add-to-cart menu-action mt-4" data-type="especialidad" data-name="Chupe" data-price="40">Agregar al carrito</button>
+      </div>
+    </div>
+
+    <div class="menu-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="160">
+      <img src="platos-especialidades-img/chupin.jpg" width="800" height="320" alt="Chupin" class="menu-card-image w-full h-48 object-cover" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='platos-img/ceviche.jpg';">
+      <div class="p-5">
+        <div class="flex items-start justify-between gap-3">
+          <h3 class="font-display text-xl font-600" style="font-weight:600;">Chupin</h3>
+          <span class="price-tag shrink-0">S/ 36.00</span>
+        </div>
+        <p class="text-sm text-[var(--ink)]/60 mt-2">Guiso o sopa espesa y sustanciosa, derivado de la tradición italiana (del ciuppin genovés) adaptada con sazón criolla</p>
+        <button type="button" class="add-to-cart menu-action mt-4" data-type="especialidad" data-name="Chupin" data-price="36">Agregar al carrito</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PLATOS -->
+<section id="platos" class="py-16 md:py-20" style="background:#F2ECDC;">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="mb-10" data-aos="fade-up">
+      <p class="eyebrow mb-2">La carta</p>
+      <h2 class="font-display text-4xl md:text-5xl font-700" style="font-weight:700;">Platos & Ceviches</h2>
+    </div>
+    <div id="platos-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </div>
+</section>
+
+<!-- BEBIDAS -->
+<section id="bebidas" class="max-w-6xl mx-auto px-5 sm:px-8 py-16 md:py-20">
+  <div class="mb-10" data-aos="fade-up">
+    <p class="eyebrow mb-2">Para acompañar</p>
+    <h2 class="font-display text-4xl md:text-5xl font-700" style="font-weight:700;">Bebidas</h2>
+  </div>
+  <div id="bebidas-list" class="grid sm:grid-cols-2 gap-x-10 gap-y-3"></div>
+</section>
+
+<!-- PAGOS -->
+<section id="pagos" class="py-16 md:py-20" style="background:var(--ocean); color:var(--cream);">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="mb-10" data-aos="fade-up">
+      <p class="eyebrow mb-2">Cómo pagar</p>
+      <h2 class="font-display text-4xl md:text-5xl font-700" style="font-weight:700;">Métodos de pago</h2>
+      <p class="mt-3 text-[var(--cream)]/70 max-w-md">Aceptamos pagos digitales al toque, sin vueltos.</p>
+    </div>
+    <div id="pagos-grid" class="grid sm:grid-cols-2 gap-6 max-w-2xl"></div>
+  </div>
+</section>
+
+<!-- RESERVAR -->
+<section id="reservar" class="relative py-20 md:py-28 text-center overflow-hidden" style="background:var(--coral); color:#fff;">
+  <div class="max-w-2xl mx-auto px-5" data-aos="zoom-in">
+    <i class="fa-brands fa-whatsapp text-5xl mb-5"></i>
+    <h2 class="font-display text-4xl md:text-5xl font-700 mb-4" style="font-weight:700;">Aparta tu mesa</h2>
+    <p class="text-white/90 mb-8">Mándanos la fecha y hora, y te confirmamos al toque por WhatsApp.</p>
+    <a id="wa-cta" href="#" target="_blank" rel="noopener"
+       class="inline-flex items-center gap-3 bg-white text-[var(--coral)] font-semibold px-7 py-4 rounded-full hover:scale-105 transition-transform">
+      <i class="fa-brands fa-whatsapp text-xl"></i> Escribir por WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- CARRITO -->
+<div id="cart-overlay" class="cart-overlay" hidden></div>
+<aside id="cart-panel" class="cart-panel" aria-labelledby="cart-title" aria-hidden="true">
+  <div class="flex items-center justify-between border-b border-black/10 pb-4">
+    <h2 id="cart-title" class="font-display text-2xl font-700">Tu pedido</h2>
+    <button id="cart-close" type="button" class="icon-button" aria-label="Cerrar carrito">
+      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+    </button>
+  </div>
+  <div id="cart-items" class="cart-items" aria-live="polite"></div>
+  <div class="border-t border-black/10 pt-4 mt-auto">
+    <div class="flex items-center justify-between font-semibold mb-4">
+      <span>Total</span><span id="cart-total" class="price-tag">S/ 0.00</span>
+    </div>
+    <fieldset class="payment-options">
+      <legend class="font-semibold mb-2">Método de pago</legend>
+      <label class="payment-option payment-option-yape">
+        <input type="radio" name="cart-payment" value="Yape" checked>
+        <span><i class="fa-solid fa-qrcode payment-icon-yape" aria-hidden="true"></i> Yape</span>
+      </label>
+      <label class="payment-option payment-option-lemon">
+        <input type="radio" name="cart-payment" value="Lemon">
+        <span><i class="fa-solid fa-lemon payment-icon-lemon" aria-hidden="true"></i> Lemon</span>
+      </label>
+    </fieldset>
+    <div id="cart-payment-qr" class="cart-payment-qr" aria-live="polite"></div>
+    <div id="payment-instructions" class="payment-instructions"></div>
+    <button id="cart-order" type="button" class="whatsapp-btn w-full text-white font-semibold px-4 py-3 rounded-full flex items-center justify-center gap-2">
+      <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Pedir por WhatsApp
+    </button>
+  </div>
+</aside>
+
+<!-- FOOTER -->
+<footer class="text-[var(--cream)]" style="background:var(--ink);">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-14 grid sm:grid-cols-3 gap-10">
+    <div>
+      <div class="flex items-center gap-2 mb-3">
+        <i class="fa-solid fa-fish text-[var(--coral)] text-xl"></i>
+        <span class="font-display text-2xl font-700" style="font-weight:700;">Augusto</span>
+      </div>
+      <p class="text-sm text-[var(--cream)]/60">Cevichería · La Perla, Callao</p>
+    </div>
+    <div class="text-sm text-[var(--cream)]/70 space-y-2">
+      <p class="flex items-start gap-2"><i class="fa-solid fa-location-dot mt-1 text-[var(--coral)]"></i> Jr. Mariscal Castilla 568, La Perla, Callao</p>
+      <p class="flex items-start gap-2"><i class="fa-regular fa-clock mt-1 text-[var(--coral)]"></i> Lunes a domingo · 11:00 AM – 5:30 PM</p>
+      <p class="flex items-start gap-2"><i class="fa-solid fa-phone mt-1 text-[var(--coral)]"></i> +51 922 261 161</p>
+    </div>
+    <div class="text-sm">
+      <p class="text-[var(--cream)]/60 mb-3">Síguenos</p>
+      <div class="flex gap-3">
+        <a href="#" aria-label="Instagram" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-[var(--coral)] transition-colors"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+        <a href="https://www.facebook.com/estefano.rossi.7545/?locale=es_LA" aria-label="Facebook" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-[var(--coral)] transition-colors"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+        <a id="wa-footer" href="#" target="_blank" rel="noopener" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-[var(--coral)] transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="border-t border-white/10 py-5 text-center text-xs text-[var(--cream)]/40">
+    © <span id="year"></span> Augusto Cevichería. Todos los derechos reservados.
+  </div>
+</footer>
+
+<a id="wa-float" href="#" target="_blank" rel="noopener" class="float-wa" aria-label="Reservar por WhatsApp">
+  <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  /* ======= EDITA AQUÍ TUS DATOS ======= */
+  const WHATSAPP_NUMERO = "51922261161";
+  const WHATSAPP_MENSAJE = "Hola Augusto, quiero reservar una mesa para [fecha] a las [hora]. Somos [N°] personas.";
+  const PAGOS = [
+    { nombre: "Yape", numero: "922 261 161", color: "var(--yape-purple)", texto: "Escanea o yapea directo al número:", qr: "platos-img/Qr-yape.jpeg", icon: "fa-qrcode", theme: "yape" },
+    { nombre: "Lemon", numero: "922 261 161", color: "var(--lemon-yellow)", texto: "Escanea el código o transfiere directo:", qr: "platos-img/Qr-lem.jpeg", icon: "fa-lemon", theme: "lemon" }
+  ];
+  const ENTRADAS = [
+    { nombre:"Causa limeña", desc:"Papa amarilla, ají amarillo y pollo o pescado.", precio:15, img:"entradas-img/causa.jpg" },
+    { nombre:"Tequeños de queso", desc:"10 unidades rellenas de queso con salsa de ají.", precio:14, img:"entradas-img/tequeños.jpg" },
+    { nombre:"Choritos a la chalaca", desc:"Mejillones al limón con cebolla y choclo.", precio:18, img:"entradas-img/choros.jpg" },
+    { nombre:"Pulpo al olivo", desc:"Pulpo cocido a fuego lento, crema de aceitunas.", precio:24, img:"entradas-img/pulpo.jpg" }
+  ];
+  const PLATOS = [
+    { nombre:"Ceviche clásico", desc:"Pescado del día, limón, cebolla, ají y camote.", precio:28, img:"platos-img/ceviche-clasic.jpg" },
+    { nombre:"Ceviche mixto", desc:"Pescado, pulpo, calamar y langostinos.", precio:34, img:"platos-img/ceviche-mixto.jpg" },
+    { nombre:"Tiradito ají amarillo", desc:"Láminas de pescado bañadas en crema de ají.", precio:30, img:"platos-img/tiradito.jpg" },
+    { nombre:"Arroz con mariscos", desc:"Arroz al wok con mariscos y toque de culantro.", precio:32, img:"platos-img/arrozconmariscos.png" },
+    { nombre:"Chicharrón de pescado", desc:"Trozos crocantes con yuca y salsa criolla.", precio:26, img:"platos-img/chicharron-pescad.jpg" },
+    { nombre:"Jalea mixta", desc:"Fritura de pescado y mariscos para compartir.", precio:42, img:"platos-img/jalea-mixta.jpg" },
+    { nombre:"Ceviche de Conchas negras", desc:"Las conchas se abren al momento y se mezclan crudas con el limón para preservar su jugo natural negro.", precio:45, img:"platos-img/conchas.jpg" }
+  ];
+  const BEBIDAS = [
+    { nombre:"Chicha morada (jarra)", precio:12 }, { nombre:"Limonada frozen", precio:10 },
+    { nombre:"Maracuyá sour", precio:14 }, { nombre:"Cerveza personal", precio:10 },
+    { nombre:"Gaseosa personal", precio:6 }, { nombre:"Agua mineral", precio:5 }
+  ];
+  /* ===================================== */
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const waUrl = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(WHATSAPP_MENSAJE)}`;
+    ["wa-nav","wa-hero","wa-cta","wa-footer","wa-float"].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) el.href = waUrl;
+    });
+    const soles = (n) => `S/ ${n.toFixed(2)}`;
+    document.getElementById("entradas-grid").innerHTML = ENTRADAS.map((item) => `
+      <div class="menu-card rounded-xl overflow-hidden" data-aos="fade-up">
+        <img src="${item.img}" width="800" height="320" alt="${item.nombre}"
+             class="menu-card-image w-full h-40 object-cover" loading="lazy" decoding="async"
+             onerror="this.onerror=null; this.src='platos-img/ceviche.jpg';">
+        <div class="p-5">
+            <h3 class="font-display text-lg font-600" style="font-weight:600;">${item.nombre}</h3>
+        <p class="text-sm text-[var(--ink)]/60 mt-1 mb-4">${item.desc}</p>
+        <div class="flex items-center justify-between gap-3">
+            <span class="price-tag">${soles(item.precio)}</span>
+        <button type="button" class="add-to-cart menu-action" data-type="entrada" data-name="${item.nombre}" data-price="${item.precio}">Agregar</button></div>
+        </div>
+      </div>`).join("");
+
+    document.getElementById("platos-grid").innerHTML = PLATOS.map((item, i) => `
+      <div class="menu-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="${(i % 3) * 80}">
+        <img src="${item.img}" width="800" height="320" alt="${item.nombre}"
+             class="menu-card-image w-full h-48 object-cover" loading="lazy" decoding="async"
+             onerror="this.onerror=null; this.src='platos-img/ceviche.jpg';">
+        <div class="p-5"><div class="flex items-start justify-between gap-3">
+          <h3 class="font-display text-xl font-600" style="font-weight:600;">${item.nombre}</h3>
+          <span class="price-tag shrink-0">${soles(item.precio)}</span></div>
+          <p class="text-sm text-[var(--ink)]/60 mt-2">${item.desc}</p>
+          <button type="button" class="add-to-cart menu-action mt-4" data-type="plato" data-name="${item.nombre}" data-price="${item.precio}">Agregar al carrito</button>
+        </div>
+      </div>`).join("");
+
+    document.getElementById("bebidas-list").innerHTML = BEBIDAS.map((item) => `
+      <div class="flex items-center justify-between border-b border-black/10 pb-3" data-aos="fade-up">
+        <span class="font-medium">${item.nombre}</span><div class="flex items-center gap-3"><span class="price-tag">${soles(item.precio)}</span>
+        <button type="button" class="add-to-cart menu-action" data-type="bebida" data-name="${item.nombre}" data-price="${item.precio}">Agregar</button></div>
+      </div>`).join("");
+
+    document.getElementById("pagos-grid").innerHTML = PAGOS.map((pago, i) => `
+      <div class="bg-white/5 border border-white/15 rounded-2xl p-6" data-aos="fade-up" data-aos-delay="${i * 100}">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="payment-brand-icon payment-brand-${pago.theme}" style="background:${pago.color}">
+            <i class="fa-solid ${pago.icon}" aria-hidden="true"></i>
+          </div><span class="font-display text-2xl font-700" style="font-weight:700;">${pago.nombre}</span>
+        </div><p class="text-sm text-[var(--cream)]/70 mb-2">${pago.texto}</p>
+        <div class="qr-frame">
+          <img src="${pago.qr}" width="280" height="280" alt="Código QR de ${pago.nombre}"
+               loading="lazy" decoding="async" onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
+          <p hidden>Agrega tu imagen QR en <strong>${pago.qr}</strong></p>
+        </div>
+        <p class="font-mono text-lg tracking-wider">${pago.numero}</p>
+      </div>`).join("");
+    document.getElementById("year").textContent = new Date().getFullYear();
+    AOS.init({ duration:700, once:true, offset:40 });
+
+    const cart = [];
+    const cartPanel = document.getElementById("cart-panel");
+    const cartOverlay = document.getElementById("cart-overlay");
+    const cartCount = document.getElementById("cart-count");
+    const cartItems = document.getElementById("cart-items");
+    const cartTotal = document.getElementById("cart-total");
+    const cartToggle = document.getElementById("cart-toggle");
+    const paymentInstructions = document.getElementById("payment-instructions");
+    const cartPaymentQr = document.getElementById("cart-payment-qr");
+    const waFloat = document.getElementById("wa-float");
+    const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+    const mobileNav = document.getElementById("mobile-nav");
+
+    const setMobileMenuOpen = (isOpen) => {
+      mobileNav.hidden = !isOpen;
+      mobileMenuToggle.setAttribute("aria-expanded", String(isOpen));
+      mobileMenuToggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
+      mobileMenuToggle.innerHTML = `<i class="fa-solid fa-${isOpen ? "xmark" : "bars"}" aria-hidden="true"></i>`;
+    };
+
+    const renderPaymentInstructions = () => {
+      const payment = document.querySelector('input[name="cart-payment"]:checked').value;
+      const paymentData = PAGOS.find((item) => item.nombre === payment);
+      const isMobile = window.matchMedia("(max-width: 767px)").matches;
+      const qrSize = isMobile ? 140 : 160;
+      cartPaymentQr.innerHTML = `
+        <p class="cart-payment-label">QR ${payment}</p>
+        <img src="${paymentData.qr}" width="${qrSize}" height="${qrSize}" alt="Código QR de ${payment}"
+             loading="lazy" decoding="async" class="qr-tap"
+             onerror="this.onerror=null; this.alt='QR de ${payment} no disponible'; this.hidden=true; this.nextElementSibling.hidden=false;">
+        <p hidden>No se encontró el QR de ${payment}. Verifica el archivo ${paymentData.qr}.</p>`;
+      paymentInstructions.innerHTML = payment === "Yape"
+        ? '<i class="fa-solid fa-qrcode" aria-hidden="true"></i> Yapea o escanea el QR'
+        : '<i class="fa-solid fa-lemon" aria-hidden="true"></i> Escanea o transfiere directo';
+    };
+
+    const renderCart = () => {
+      const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
+      const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      cartCount.textContent = itemCount;
+      cartTotal.textContent = soles(total);
+      cartItems.innerHTML = cart.length ? cart.map((item) => `
+        <div class="cart-item">
+          <div><strong>${item.name}</strong><small>${soles(item.price)} c/u</small></div>
+          <div class="cart-item-controls">
+            <button type="button" class="quantity-button" data-cart-action="decrease" data-cart-name="${item.name}" aria-label="Disminuir ${item.name}">−</button>
+            <span>${item.quantity}</span>
+            <button type="button" class="quantity-button" data-cart-action="increase" data-cart-name="${item.name}" aria-label="Aumentar ${item.name}">+</button>
+            <button type="button" class="remove-button" data-cart-action="remove" data-cart-name="${item.name}" aria-label="Eliminar ${item.name}"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+          </div>
+        </div>`).join("") : '<p class="cart-empty">Aún no agregas productos.</p>';
+      updateFloatAction(itemCount);
+    };
+
+    const updateFloatAction = (itemCount) => {
+      if (!waFloat) return;
+      if (itemCount && itemCount > 0) {
+        waFloat.href = '#';
+        waFloat.setAttribute('aria-label', 'Abrir carrito');
+        waFloat.innerHTML = `<i class="fa-solid fa-bag-shopping" aria-hidden="true"></i><span class="float-count">${itemCount}</span>`;
+        waFloat.onclick = (e) => { e.preventDefault(); setCartOpen(true); };
+      } else {
+        waFloat.href = waUrl;
+        waFloat.setAttribute('aria-label', 'Reservar por WhatsApp');
+        waFloat.innerHTML = `<i class="fa-brands fa-whatsapp" aria-hidden="true"></i>`;
+        waFloat.onclick = null;
+      }
+    };
+
+    const setCartOpen = (isOpen) => {
+      cartPanel.classList.toggle("is-open", isOpen);
+      cartOverlay.hidden = true;
+      cartPanel.setAttribute("aria-hidden", String(!isOpen));
+      cartToggle.setAttribute("aria-expanded", String(isOpen));
+    };
+
+    document.addEventListener("click", (event) => {
+      const addButton = event.target.closest(".add-to-cart");
+      if (addButton) {
+        const existingItem = cart.find((item) => item.name === addButton.dataset.name);
+        if (existingItem) existingItem.quantity += 1;
+        else cart.push({ name: addButton.dataset.name, price: Number(addButton.dataset.price), quantity: 1 });
+        renderCart();
+        if (!window.matchMedia("(max-width: 767px)").matches) setCartOpen(true);
+        return;
+      }
+
+      const filetButton = event.target.closest(".add-filete-cart");
+      if (filetButton) {
+        const select = filetButton.closest(".menu-card").querySelector(".filete-sauce-select");
+        const [price, sauce] = select.value.split("|");
+        const itemName = `${filetButton.dataset.baseName} en Salsa de ${sauce}`;
+        const existingItem = cart.find((item) => item.name === itemName);
+        if (existingItem) existingItem.quantity += 1;
+        else cart.push({ name: itemName, price: Number(price), quantity: 1 });
+        renderCart();
+        if (!window.matchMedia("(max-width: 767px)").matches) setCartOpen(true);
+        return;
+      }
+
+      const actionButton = event.target.closest("[data-cart-action]");
+      if (actionButton) {
+        const itemIndex = cart.findIndex((item) => item.name === actionButton.dataset.cartName);
+        if (itemIndex === -1) return;
+        if (actionButton.dataset.cartAction === "increase") cart[itemIndex].quantity += 1;
+        if (actionButton.dataset.cartAction === "decrease") cart[itemIndex].quantity -= 1;
+        if (actionButton.dataset.cartAction === "remove" || cart[itemIndex].quantity < 1) cart.splice(itemIndex, 1);
+        renderCart();
+      }
+    });
+
+    document.addEventListener("change", (event) => {
+      if (event.target.classList.contains("filete-sauce-select")) {
+        const [price] = event.target.value.split("|");
+        const priceSpan = event.target.closest(".menu-card").querySelector(".filete-price");
+        priceSpan.textContent = `S/ ${parseFloat(price).toFixed(2)}`;
+      }
+    });
+
+    document.addEventListener("click", (event) => {
+      if (event.target.classList.contains("qr-tap")) {
+        event.target.classList.toggle("qr-expanded");
+      }
+    });
+
+    cartToggle.addEventListener("click", () => setCartOpen(true));
+    mobileMenuToggle.addEventListener("click", () => setMobileMenuOpen(mobileNav.hidden));
+    mobileNav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => setMobileMenuOpen(false));
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") setMobileMenuOpen(false);
+    });
+    document.getElementById("cart-close").addEventListener("click", () => setCartOpen(false));
+    cartOverlay.addEventListener("click", () => setCartOpen(false));
+    document.querySelectorAll('input[name="cart-payment"]').forEach((input) => {
+      input.addEventListener("change", renderPaymentInstructions);
+    });
+    document.getElementById("cart-order").addEventListener("click", () => {
+      if (!cart.length) return;
+      const order = cart.map((item) => `${item.quantity} x ${item.name} (${soles(item.price * item.quantity)})`).join("\n");
+      const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      const payment = document.querySelector('input[name="cart-payment"]:checked').value;
+      const paymentMessage = payment === "Yape"
+        ? "Pagaré por Yape y enviaré el comprobante."
+        : "Pagaré por Lemon y enviaré el comprobante.";
+      window.open(`https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(`Hola Augusto, quiero pedir:\n${order}\nTotal: ${soles(total)}\nMétodo de pago: ${payment}\n${paymentMessage}`)}`, "_blank", "noopener");
+    });
+    renderCart();
+    renderPaymentInstructions();
+  });
+</script>
+</body>
+</html>

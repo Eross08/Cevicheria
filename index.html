@@ -383,6 +383,14 @@
   </div>
 </aside>
 
+<div id="mobile-cart-bar" class="mobile-cart-bar" aria-live="polite">
+  <div class="mobile-cart-summary">
+    <span id="mobile-cart-count" class="mobile-cart-count">0 productos</span>
+    <strong id="mobile-cart-total" class="mobile-cart-total">S/ 0.00</strong>
+  </div>
+  <button id="mobile-cart-open" type="button" class="mobile-cart-open">Ver carrito</button>
+</div>
+
 <!-- FOOTER -->
 <footer class="text-[var(--cream)]" style="background:var(--ink);">
   <div class="max-w-6xl mx-auto px-5 sm:px-8 py-14 grid sm:grid-cols-3 gap-10">
@@ -514,6 +522,9 @@
     const cartItems = document.getElementById("cart-items");
     const cartTotal = document.getElementById("cart-total");
     const cartToggle = document.getElementById("cart-toggle");
+    const mobileCartCount = document.getElementById("mobile-cart-count");
+    const mobileCartTotal = document.getElementById("mobile-cart-total");
+    const mobileCartOpen = document.getElementById("mobile-cart-open");
     const paymentInstructions = document.getElementById("payment-instructions");
     const cartPaymentQr = document.getElementById("cart-payment-qr");
     const waFloat = document.getElementById("wa-float");
@@ -548,9 +559,9 @@
              loading="lazy" decoding="async" class="qr-tap"
              onerror="this.onerror=null; this.alt='QR de ${payment} no disponible'; this.hidden=true; this.nextElementSibling.hidden=false;">
         <p hidden>No se encontró el QR de ${payment}. Verifica el archivo ${paymentData.qr}.</p>`;
-      paymentInstructions.innerHTML = payment === "Yape"
-        ? '<i class="fa-solid fa-qrcode" aria-hidden="true"></i> Yapea o escanea el QR'
-        : '<i class="fa-solid fa-lemon" aria-hidden="true"></i> Escanea o transfiere directo';
+      paymentInstructions.innerHTML = payment === "Yape" || payment === "Lemon"
+        ? '<i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Envía el comprobante de pago después de realizar la transferencia.'
+        : '<i class="fa-solid fa-wallet" aria-hidden="true"></i> Escanea o transfiere directo';
     };
 
     const renderCart = () => {
@@ -558,6 +569,8 @@
       const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
       cartCount.textContent = itemCount;
       cartTotal.textContent = soles(total);
+      mobileCartCount.textContent = itemCount === 0 ? '0 productos' : `${itemCount} ${itemCount === 1 ? 'producto' : 'productos'}`;
+      mobileCartTotal.textContent = soles(total);
       cartItems.innerHTML = cart.length ? cart.map((item) => `
         <div class="cart-item">
           <div><strong>${item.name}</strong><small>${soles(item.price)} c/u</small></div>
@@ -643,6 +656,7 @@
     });
 
     cartToggle.addEventListener("click", () => setCartOpen(true));
+    mobileCartOpen.addEventListener("click", () => setCartOpen(true));
     mobileMenuToggle.addEventListener("click", () => setMobileMenuOpen(mobileNav.hidden));
     mobileNav.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => setMobileMenuOpen(false));
@@ -661,9 +675,9 @@
       const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
       const payment = document.querySelector('input[name="cart-payment"]:checked').value;
       const paymentMessage = payment === "Yape"
-        ? "Pagaré por Yape y enviaré el comprobante."
+        ? "Pagaré por Yape y enviaré el comprobante de pago."
         : payment === "Lemon"
-          ? "Pagaré por Lemon y enviaré el comprobante."
+          ? "Pagaré por Lemon y enviaré el comprobante de pago."
           : "Pagaré en efectivo al recibir el pedido y me entregarán un comprobante del total.";
       window.open(`https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(`Hola Augusto, quiero pedir:\n${order}\nTotal: ${soles(total)}\nMétodo de pago: ${payment}\n${paymentMessage}`)}`, "_blank", "noopener");
     });

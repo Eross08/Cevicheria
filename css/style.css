@@ -284,9 +284,18 @@
     border-color:var(--lemon-yellow);
      color:#769000; 
     }
+
+  .payment-option-efectivo:has(input:checked){ 
+    border-color:var(--teal);
+     color:var(--teal); 
+    }
   
   .payment-option input{ 
     accent-color:currentColor;
+ }
+
+  .payment-icon-efectivo{ 
+    color:var(--teal);
  }
   
   .payment-icon-yape{ 

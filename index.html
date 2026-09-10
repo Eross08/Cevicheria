@@ -13,7 +13,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/js/all.min.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="antialiased">
 
@@ -29,7 +29,7 @@
       <a href="#platos" class="nav-link">Platos</a>
       <a href="#bebidas" class="nav-link">Bebidas</a>
       <a href="#pagos" class="nav-link">Pagos</a>
-      <a href="#reservar" class="nav-link">Reservas</a>
+      <button type="button" id="nav-link-reservas" class="nav-link text-sm font-medium cursor-pointer">Reservas</button>
     </nav>
     <button id="mobile-menu-toggle" type="button" class="mobile-menu-toggle" aria-controls="mobile-nav" aria-expanded="false" aria-label="Abrir menú">
       <i class="fa-solid fa-bars" aria-hidden="true"></i>
@@ -38,18 +38,18 @@
       <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
       <span>Carrito</span><span id="cart-count" class="cart-count">0</span>
     </button>
-    <a id="wa-nav" href="#" target="_blank" rel="noopener"
-       class="whatsapp-btn text-white text-sm font-semibold px-4 py-2 rounded-full flex items-center gap-2"
-       aria-label="Reservar por WhatsApp">
-      <i class="fa-brands fa-whatsapp"></i> Reservar
-    </a>
+    <button id="btn-open-reserva-nav" type="button"
+       class="whatsapp-btn text-white text-sm font-semibold px-4 py-2 rounded-full flex items-center gap-2 cursor-pointer"
+       aria-label="Abrir reserva de mesa">
+      <i class="fa-regular fa-calendar-check"></i> Reservar
+    </button>
   </div>
   <nav id="mobile-nav" class="mobile-nav" aria-label="Navegación móvil" hidden>
     <a href="#entradas" class="nav-link">Entradas</a>
     <a href="#platos" class="nav-link">Platos</a>
     <a href="#bebidas" class="nav-link">Bebidas</a>
     <a href="#pagos" class="nav-link">Pagos</a>
-    <a href="#reservar" class="nav-link">Reservas</a>
+    <button type="button" id="mobile-nav-reservas" class="nav-link text-left w-full cursor-pointer">Reservas</button>
   </nav>
 </header>
 
@@ -64,14 +64,14 @@
       </h1>
       <p class="mt-6 text-lg text-[var(--cream)]/80 max-w-md">
         Pescado del día, leche de tigre bien picante y la sazón de siempre.
-        Reserva tu mesa por WhatsApp en menos de un minuto.
+        Reserva tu mesa en línea en menos de un minuto.
       </p>
 
       <div class="mt-8 flex flex-wrap items-center gap-4">
-        <a id="wa-hero" href="#" target="_blank" rel="noopener"
-           class="whatsapp-btn text-white font-semibold px-6 py-3.5 rounded-full flex items-center gap-3 text-base">
-          <i class="fa-brands fa-whatsapp text-xl"></i> Reservar por WhatsApp
-        </a>
+        <button id="btn-open-reserva-hero" type="button"
+           class="whatsapp-btn text-white font-semibold px-6 py-3.5 rounded-full flex items-center gap-3 text-base cursor-pointer">
+          <i class="fa-regular fa-calendar-check text-xl"></i> Reservar Mesa
+        </button>
         <a href="#platos" class="text-sm font-semibold underline underline-offset-4 decoration-[var(--coral)]">Ver la carta</a>
       </div>
 
@@ -333,18 +333,177 @@
   </div>
 </section>
 
-<!-- RESERVAR -->
-<section id="reservar" class="relative py-20 md:py-28 text-center overflow-hidden" style="background:var(--coral); color:#fff;">
-  <div class="max-w-2xl mx-auto px-5" data-aos="zoom-in">
-    <i class="fa-brands fa-whatsapp text-5xl mb-5"></i>
-    <h2 class="font-display text-4xl md:text-5xl font-700 mb-4" style="font-weight:700;">Aparta tu mesa</h2>
-    <p class="text-white/90 mb-8">Mándanos la fecha y hora, y te confirmamos al toque por WhatsApp.</p>
-    <a id="wa-cta" href="#" target="_blank" rel="noopener"
-       class="inline-flex items-center gap-3 bg-white text-[var(--coral)] font-semibold px-7 py-4 rounded-full hover:scale-105 transition-transform">
-      <i class="fa-brands fa-whatsapp text-xl"></i> Escribir por WhatsApp
-    </a>
+<!-- RESERVAR (BANNER CTA) -->
+<section id="reservar" class="relative py-20 md:py-24 text-center overflow-hidden" style="background:var(--coral); color:#fff;">
+  <div class="max-w-2xl mx-auto px-5 relative z-10" data-aos="zoom-in">
+    <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-white/15 mb-4 text-white text-2xl shadow-inner">
+      <i class="fa-regular fa-calendar-days"></i>
+    </div>
+    <p class="eyebrow !text-white/80 mb-2">Reserva tu mesa</p>
+    <h2 class="font-display text-4xl md:text-5xl font-700 mb-4" style="font-weight:700;">Vive la mejor experiencia marina</h2>
+    <p class="text-white/90 mb-8 max-w-lg mx-auto text-sm sm:text-base">
+      Registra tu reserva en segundos con nuestro sistema online. Te aseguramos mesa lista y pescado fresco del día.
+    </p>
+    <button id="btn-open-reserva-cta" type="button"
+       class="inline-flex items-center gap-3 bg-white text-[var(--coral)] font-semibold px-8 py-4 rounded-full hover:scale-105 transition-all shadow-xl text-base cursor-pointer">
+      <i class="fa-regular fa-calendar-check text-xl"></i> Reservar Mesa Ahora
+    </button>
   </div>
 </section>
+
+<!-- MODAL DE RESERVA (SUPABASE) -->
+<div id="reserva-modal" class="reserva-modal-backdrop" hidden>
+  <div class="reserva-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-reserva-title">
+    <button id="reserva-modal-close" type="button" class="reserva-modal-close-btn" aria-label="Cerrar modal">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <!-- Header del Modal -->
+    <div class="text-center mb-6">
+      <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[var(--coral)]/10 text-[var(--coral)] mb-2 text-xl">
+        <i class="fa-regular fa-calendar-days"></i>
+      </div>
+      <h3 id="modal-reserva-title" class="font-display text-2xl sm:text-3xl font-700 text-[var(--ink)]" style="font-weight:700;">Aparta tu mesa</h3>
+      <p class="text-xs sm:text-sm text-[var(--ink)]/70 mt-1 max-w-sm mx-auto">
+        Registra tu reserva online. Te confirmaremos al toque para tener todo listo.
+      </p>
+    </div>
+
+    <!-- TARJETA DEL FORMULARIO -->
+    <div id="reserva-card-wrapper">
+      <form id="reserva-form" class="space-y-4" novalidate>
+        <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
+          <!-- Nombre -->
+          <div>
+            <label for="reserva-nombre" class="reservation-label">
+              <i class="fa-solid fa-user text-[var(--coral)] mr-1"></i> Nombre completo *
+            </label>
+            <input type="text" id="reserva-nombre" name="nombre" required
+                   class="reservation-input" placeholder="Ej. Carlos Mendoza">
+          </div>
+
+          <!-- Teléfono / WhatsApp -->
+          <div>
+            <label for="reserva-telefono" class="reservation-label">
+              <i class="fa-brands fa-whatsapp text-emerald-600 mr-1"></i> Teléfono / WhatsApp *
+            </label>
+            <input type="tel" id="reserva-telefono" name="telefono" required pattern="[0-9]{9}"
+                   class="reservation-input" placeholder="Ej. 997835090">
+          </div>
+
+          <!-- Fecha -->
+          <div>
+            <label for="reserva-fecha" class="reservation-label">
+              <i class="fa-regular fa-calendar text-[var(--coral)] mr-1"></i> Fecha *
+            </label>
+            <input type="date" id="reserva-fecha" name="fecha" required
+                   class="reservation-input">
+          </div>
+
+          <!-- Hora -->
+          <div>
+            <label for="reserva-hora" class="reservation-label">
+              <i class="fa-regular fa-clock text-[var(--coral)] mr-1"></i> Hora estimada *
+            </label>
+            <select id="reserva-hora" name="hora" required class="reservation-input">
+              <option value="" disabled selected>Selecciona una hora</option>
+              <option value="11:30 AM">11:30 AM</option>
+              <option value="12:00 PM">12:00 PM</option>
+              <option value="12:30 PM">12:30 PM</option>
+              <option value="01:00 PM">01:00 PM</option>
+              <option value="01:30 PM">01:30 PM</option>
+              <option value="02:00 PM">02:00 PM</option>
+              <option value="02:30 PM">02:30 PM</option>
+              <option value="03:00 PM">03:00 PM</option>
+              <option value="03:30 PM">03:30 PM</option>
+              <option value="04:00 PM">04:00 PM</option>
+              <option value="04:30 PM">04:30 PM</option>
+              <option value="05:00 PM">05:00 PM</option>
+            </select>
+          </div>
+
+          <!-- Comensales -->
+          <div class="sm:col-span-2">
+            <label for="reserva-comensales" class="reservation-label">
+              <i class="fa-solid fa-users text-[var(--coral)] mr-1"></i> Número de personas *
+            </label>
+            <select id="reserva-comensales" name="comensales" required class="reservation-input">
+              <option value="1">1 persona</option>
+              <option value="2" selected>2 personas</option>
+              <option value="3">3 personas</option>
+              <option value="4">4 personas</option>
+              <option value="5">5 personas</option>
+              <option value="6">6 personas</option>
+              <option value="8">7 a 8 personas</option>
+              <option value="10">9 a 10 personas</option>
+              <option value="12">Más de 10 personas (Mesa larga)</option>
+            </select>
+          </div>
+
+          <!-- Comentarios adicionales -->
+          <div class="sm:col-span-2">
+            <label for="reserva-comentarios" class="reservation-label">
+              <i class="fa-regular fa-comment-dots text-[var(--coral)] mr-1"></i> Notas especiales <span class="font-normal text-xs text-gray-500">(Opcional)</span>
+            </label>
+            <input type="text" id="reserva-comentarios" name="comentarios"
+                   class="reservation-input" placeholder="Ej. Cumpleaños, terraza...">
+          </div>
+        </div>
+
+        <!-- Mensaje de error dinámico -->
+        <div id="reserva-error-msg" class="hidden p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm flex items-center gap-2">
+          <i class="fa-solid fa-circle-exclamation text-red-500 shrink-0"></i>
+          <span id="reserva-error-text">Por favor revisa los campos requeridos.</span>
+        </div>
+
+        <!-- Botón de Envío -->
+        <div class="pt-1">
+          <button type="submit" id="reserva-submit-btn" class="reservation-btn-submit">
+            <span id="reserva-btn-text">Confirmar y Registrar Reserva</span>
+            <i class="fa-solid fa-arrow-right" id="reserva-btn-icon"></i>
+          </button>
+        </div>
+
+        <p class="text-center text-xs text-gray-500 pt-1">
+          ¿Prefieres consultar directo por chat? 
+          <a id="wa-cta" href="#" target="_blank" rel="noopener" class="text-[var(--coral)] font-semibold hover:underline">
+            Escríbenos por WhatsApp <i class="fa-brands fa-whatsapp"></i>
+          </a>
+        </p>
+      </form>
+    </div>
+
+    <!-- TARJETA DE CONFIRMACIÓN EXITOSA (OCULTA POR DEFECTO) -->
+    <div id="reserva-success-card" class="reserva-success-card hidden">
+      <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl shadow-sm">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      <span class="reserva-badge mb-2">¡Reserva Registrada!</span>
+      <h3 class="font-display text-2xl sm:text-3xl font-700 mt-2 mb-2" style="font-weight:700;">¡Te esperamos, <span id="reserva-success-name"></span>!</h3>
+      <p class="text-xs sm:text-sm text-gray-600 max-w-sm mx-auto mb-5">
+        Hemos guardado tu reserva exitosamente. Notifícanos por WhatsApp para darte prioridad:
+      </p>
+
+      <!-- Resumen -->
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-3.5 max-w-sm mx-auto mb-5 text-left text-sm space-y-1 font-medium">
+        <p class="flex justify-between text-gray-700"><span class="text-gray-500 font-normal">Fecha:</span> <strong id="reserva-success-fecha"></strong></p>
+        <p class="flex justify-between text-gray-700"><span class="text-gray-500 font-normal">Hora:</span> <strong id="reserva-success-hora"></strong></p>
+        <p class="flex justify-between text-gray-700"><span class="text-gray-500 font-normal">Personas:</span> <strong id="reserva-success-personas"></strong></p>
+      </div>
+
+      <div class="flex flex-col gap-2.5 max-w-sm mx-auto">
+        <a id="reserva-success-wa-btn" href="#" target="_blank" rel="noopener"
+           class="whatsapp-btn text-white font-semibold px-5 py-3 rounded-full flex items-center justify-center gap-2 w-full text-sm">
+          <i class="fa-brands fa-whatsapp text-lg"></i> Notificar por WhatsApp
+        </a>
+        <button id="reserva-reset-btn" type="button"
+                class="px-4 py-2.5 rounded-full border border-gray-300 text-gray-700 hover:bg-gray-100 font-semibold text-xs sm:text-sm w-full transition-colors">
+          Hacer otra reserva
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- CARRITO -->
 <div id="cart-overlay" class="cart-overlay" hidden></div>
@@ -456,6 +615,21 @@
     { nombre:"Maracuyá sour", precio:14 }, { nombre:"Cerveza personal", precio:10 },
     { nombre:"Gaseosa personal", precio:6 }, { nombre:"Agua mineral", precio:5 }
   ];
+  /* =====================================
+     CONFIGURACIÓN DE SUPABASE (RESERVAS)
+     Reemplaza con tus claves de https://supabase.com (Settings > API)
+     ===================================== */
+  const SUPABASE_URL = "https://jrfayjyjoihtfodoqpki.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpyZmF5anlqb2lodGZvZG9xcGtpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwNjYxODAsImV4cCI6MjEwNDY0MjE4MH0.df_8b2JerXhf4NXOPkiRyEUCt0z3IjGIAngIGln_r1M";
+
+  let supabaseClient = null;
+  try {
+    if (window.supabase && SUPABASE_URL && !SUPABASE_URL.includes("TU_PROYECTO") && SUPABASE_ANON_KEY && !SUPABASE_ANON_KEY.includes("TU_SUPABASE")) {
+      supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    }
+  } catch (e) {
+    console.warn("Supabase no inicializado:", e);
+  }
   /* ===================================== */
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -681,6 +855,185 @@
           : "Pagaré en efectivo al recibir el pedido y me entregarán un comprobante del total.";
       window.open(`https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(`Hola Augusto, quiero pedir:\n${order}\nTotal: ${soles(total)}\nMétodo de pago: ${payment}\n${paymentMessage}`)}`, "_blank", "noopener");
     });
+    // ===== LÓGICA DEL MODAL Y RESERVAS CON SUPABASE =====
+    const reservaModal = document.getElementById("reserva-modal");
+    const reservaModalClose = document.getElementById("reserva-modal-close");
+    const reservaForm = document.getElementById("reserva-form");
+    const reservaCardWrapper = document.getElementById("reserva-card-wrapper");
+    const reservaSuccessCard = document.getElementById("reserva-success-card");
+    const reservaFechaInput = document.getElementById("reserva-fecha");
+    const reservaSubmitBtn = document.getElementById("reserva-submit-btn");
+    const reservaBtnText = document.getElementById("reserva-btn-text");
+    const reservaBtnIcon = document.getElementById("reserva-btn-icon");
+    const reservaErrorMsg = document.getElementById("reserva-error-msg");
+    const reservaErrorText = document.getElementById("reserva-error-text");
+    const reservaResetBtn = document.getElementById("reserva-reset-btn");
+    const reservaSuccessName = document.getElementById("reserva-success-name");
+    const reservaSuccessFecha = document.getElementById("reserva-success-fecha");
+    const reservaSuccessHora = document.getElementById("reserva-success-hora");
+    const reservaSuccessPersonas = document.getElementById("reserva-success-personas");
+    const reservaSuccessWaBtn = document.getElementById("reserva-success-wa-btn");
+
+    const openReservaModal = () => {
+      if (reservaModal) {
+        reservaModal.hidden = false;
+        document.body.style.overflow = "hidden";
+      }
+    };
+
+    const closeReservaModal = () => {
+      if (reservaModal) {
+        reservaModal.hidden = true;
+        document.body.style.overflow = "";
+      }
+    };
+
+    // Botones para abrir el modal de reservas
+    ["btn-open-reserva-nav", "nav-link-reservas", "btn-open-reserva-hero", "btn-open-reserva-cta"].forEach((id) => {
+      const btn = document.getElementById(id);
+      if (btn) btn.addEventListener("click", openReservaModal);
+    });
+
+    const mobileNavReservas = document.getElementById("mobile-nav-reservas");
+    if (mobileNavReservas) {
+      mobileNavReservas.addEventListener("click", () => {
+        setMobileMenuOpen(false);
+        openReservaModal();
+      });
+    }
+
+    if (reservaModalClose) {
+      reservaModalClose.addEventListener("click", closeReservaModal);
+    }
+
+    if (reservaModal) {
+      reservaModal.addEventListener("click", (e) => {
+        if (e.target === reservaModal) closeReservaModal();
+      });
+    }
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        setMobileMenuOpen(false);
+        closeReservaModal();
+      }
+    });
+
+    if (reservaFechaInput) {
+      // Establecer fecha mínima como hoy
+      const today = new Date().toISOString().split("T")[0];
+      reservaFechaInput.min = today;
+      reservaFechaInput.value = today;
+    }
+
+    if (reservaForm) {
+      reservaForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        reservaErrorMsg.classList.add("hidden");
+
+        const nombre = document.getElementById("reserva-nombre").value.trim();
+        const telefono = document.getElementById("reserva-telefono").value.trim();
+        const fecha = document.getElementById("reserva-fecha").value;
+        const hora = document.getElementById("reserva-hora").value;
+        const comensales = document.getElementById("reserva-comensales").value;
+        const comentarios = document.getElementById("reserva-comentarios").value.trim();
+
+        // Validaciones
+        if (!nombre) {
+          reservaErrorText.textContent = "Por favor ingresa tu nombre completo.";
+          reservaErrorMsg.classList.remove("hidden");
+          return;
+        }
+        if (!telefono || telefono.length < 7) {
+          reservaErrorText.textContent = "Por favor ingresa un número de teléfono o WhatsApp válido.";
+          reservaErrorMsg.classList.remove("hidden");
+          return;
+        }
+        if (!fecha) {
+          reservaErrorText.textContent = "Por favor selecciona la fecha de tu reserva.";
+          reservaErrorMsg.classList.remove("hidden");
+          return;
+        }
+        if (!hora) {
+          reservaErrorText.textContent = "Por favor selecciona una hora de atención.";
+          reservaErrorMsg.classList.remove("hidden");
+          return;
+        }
+
+        // Estado de carga
+        reservaSubmitBtn.disabled = true;
+        reservaBtnText.textContent = "Guardando reserva...";
+        reservaBtnIcon.className = "fa-solid fa-spinner fa-spin";
+
+        try {
+          if (supabaseClient) {
+            const { error } = await supabaseClient
+              .from("reservas")
+              .insert([
+                {
+                  nombre: nombre,
+                  telefono: telefono,
+                  fecha: fecha,
+                  hora: hora,
+                  comensales: parseInt(comensales, 10),
+                  comentarios: comentarios || null,
+                  estado: "pendiente"
+                }
+              ]);
+
+            if (error) {
+              throw error;
+            }
+          } else {
+            console.info("Supabase aún no está configurado con credenciales válidas. Mostrando flujo de confirmación local.");
+          }
+
+          // Formatear fecha para el resumen
+          const [yyyy, mm, dd] = fecha.split("-");
+          const dateObj = new Date(Number(yyyy), Number(mm) - 1, Number(dd));
+          const fechaFormateada = dateObj.toLocaleDateString("es-PE", {
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+          });
+
+          // Llenar datos de éxito
+          reservaSuccessName.textContent = nombre;
+          reservaSuccessFecha.textContent = fechaFormateada.charAt(0).toUpperCase() + fechaFormateada.slice(1);
+          reservaSuccessHora.textContent = hora;
+          reservaSuccessPersonas.textContent = `${comensales} ${parseInt(comensales, 10) === 1 ? "persona" : "personas"}`;
+
+          // Armar mensaje directo para WhatsApp
+          const waMsg = `Hola Augusto, registré una reserva:\n- Nombre: ${nombre}\n- Fecha: ${fecha}\n- Hora: ${hora}\n- Personas: ${comensales}${comentarios ? `\n- Nota: ${comentarios}` : ""}\nPor favor me confirman disponibilidad.`;
+          reservaSuccessWaBtn.href = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(waMsg)}`;
+
+          // Transición a la tarjeta de éxito
+          reservaCardWrapper.classList.add("hidden");
+          reservaSuccessCard.classList.remove("hidden");
+          reservaForm.reset();
+          if (reservaFechaInput) {
+            reservaFechaInput.value = new Date().toISOString().split("T")[0];
+          }
+        } catch (err) {
+          console.error("Error al registrar reserva:", err);
+          reservaErrorText.textContent = "Ocurrió un error al guardar la reserva: " + (err.message || "Verifica tu conexión.");
+          reservaErrorMsg.classList.remove("hidden");
+        } finally {
+          reservaSubmitBtn.disabled = false;
+          reservaBtnText.textContent = "Confirmar y Registrar Reserva";
+          reservaBtnIcon.className = "fa-solid fa-arrow-right";
+        }
+      });
+    }
+
+    if (reservaResetBtn) {
+      reservaResetBtn.addEventListener("click", () => {
+        reservaSuccessCard.classList.add("hidden");
+        reservaCardWrapper.classList.remove("hidden");
+      });
+    }
+
     renderCart();
     renderPaymentInstructions();
   });

@@ -493,3 +493,158 @@
   @media (prefers-reduced-motion:reduce){
     *{ animation:none!important; transition:none!important; }
   }
+
+  /* ====== RESERVAS / SUPABASE MODAL & FORM ====== */
+  .reserva-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: rgba(14, 59, 77, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 1;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+  }
+  .reserva-modal-backdrop[hidden] {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    display: none !important;
+  }
+  .reserva-modal-dialog {
+    background: #ffffff;
+    color: var(--ink);
+    border-radius: 28px;
+    box-shadow: 0 30px 60px -12px rgba(10, 44, 58, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    width: 100%;
+    max-width: 620px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    padding: 2rem 1.75rem;
+    animation: modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  @media (min-width: 640px) {
+    .reserva-modal-dialog {
+      padding: 2.5rem 2.25rem;
+    }
+  }
+  .reserva-modal-close-btn {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(30, 36, 34, 0.06);
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+    z-index: 10;
+  }
+  .reserva-modal-close-btn:hover {
+    background: rgba(232, 85, 44, 0.15);
+    color: var(--coral);
+    transform: scale(1.08);
+  }
+  .reservation-label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.35rem;
+    letter-spacing: 0.01em;
+  }
+  .reservation-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    border: 1.5px solid rgba(30, 36, 34, 0.15);
+    background: #FAFAF8;
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    outline: none;
+  }
+  .reservation-input:focus {
+    background: #ffffff;
+    border-color: var(--coral);
+    box-shadow: 0 0 0 3px rgba(232, 85, 44, 0.18);
+  }
+  .reservation-btn-submit {
+    background: var(--coral);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.9rem 1.5rem;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    transition: all 0.25s ease;
+    box-shadow: 0 10px 20px -6px rgba(232, 85, 44, 0.45);
+  }
+  .reservation-btn-submit:hover:not(:disabled) {
+    background: #d44720;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 26px -6px rgba(232, 85, 44, 0.55);
+  }
+  .reservation-btn-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  .reserva-success-card {
+    background: #ffffff;
+    color: var(--ink);
+    border-radius: 20px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    animation: fadeInScale 0.35s ease-out forwards;
+  }
+  .reserva-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: rgba(184, 201, 58, 0.2);
+    color: #4D5710;
+    font-weight: 700;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  @keyframes modalSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px) scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+

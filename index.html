@@ -31,25 +31,33 @@
       <a href="#pagos" class="nav-link">Pagos</a>
       <button type="button" id="nav-link-reservas" class="nav-link text-sm font-medium cursor-pointer">Reservas</button>
     </nav>
-    <button id="mobile-menu-toggle" type="button" class="mobile-menu-toggle" aria-controls="mobile-nav" aria-expanded="false" aria-label="Abrir menú">
-      <i class="fa-solid fa-bars" aria-hidden="true"></i>
-    </button>
-    <button id="cart-toggle" type="button" class="cart-button" aria-controls="cart-panel" aria-expanded="false">
-      <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
-      <span>Carrito</span><span id="cart-count" class="cart-count">0</span>
-    </button>
-    <button id="btn-open-reserva-nav" type="button"
-       class="whatsapp-btn text-white text-sm font-semibold px-4 py-2 rounded-full flex items-center gap-2 cursor-pointer"
-       aria-label="Abrir reserva de mesa">
-      <i class="fa-regular fa-calendar-check"></i> Reservar
-    </button>
+    <div class="flex items-center gap-3">
+      <a href="https://maps.app.goo.gl/1ompmkqSmNhu8jMaA" target="_blank" rel="noopener"
+         class="nav-location-btn flex items-center gap-1.5 text-xs sm:text-sm font-semibold px-3 py-2 rounded-full border border-black/10 bg-white/70 hover:bg-white text-[var(--ink)] transition-all shadow-sm"
+         aria-label="Ver ubicación en Google Maps (Jr. Mariscal Castilla 568, La Perla, Callao)">
+        <i class="fa-solid fa-location-dot text-[var(--coral)] text-sm sm:text-base"></i>
+        <span class="hidden sm:inline text-xs font-medium">La Perla, Callao</span>
+      </a>
+      <button id="cart-toggle" type="button" class="cart-button" aria-controls="cart-panel" aria-expanded="false">
+        <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
+        <span>Carrito</span><span id="cart-count" class="cart-count">0</span>
+      </button>
+      <button id="mobile-menu-toggle" type="button" class="mobile-menu-toggle" aria-controls="mobile-nav" aria-expanded="false" aria-label="Abrir menú">
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </button>
+    </div>
   </div>
   <nav id="mobile-nav" class="mobile-nav" aria-label="Navegación móvil" hidden>
     <a href="#entradas" class="nav-link">Entradas</a>
     <a href="#platos" class="nav-link">Platos</a>
     <a href="#bebidas" class="nav-link">Bebidas</a>
     <a href="#pagos" class="nav-link">Pagos</a>
-    <button type="button" id="mobile-nav-reservas" class="nav-link text-left w-full cursor-pointer">Reservas</button>
+    <button type="button" id="mobile-nav-reservas" class="nav-link text-left w-full cursor-pointer font-semibold text-[var(--coral)] flex items-center gap-2">
+      <i class="fa-regular fa-calendar-check"></i> Reservar Mesa
+    </button>
+    <a href="https://maps.app.goo.gl/1ompmkqSmNhu8jMaA" target="_blank" rel="noopener" class="nav-link text-left w-full flex items-center gap-2">
+      <i class="fa-solid fa-location-dot text-[var(--coral)]"></i> Jr. Mariscal Castilla 568, Callao
+    </a>
   </nav>
 </header>
 
@@ -75,8 +83,14 @@
         <a href="#platos" class="text-sm font-semibold underline underline-offset-4 decoration-[var(--coral)]">Ver la carta</a>
       </div>
 
-      <div class="mt-10 flex items-center gap-6 text-sm text-[var(--cream)]/70">
-        <div class="flex items-center gap-2"><i class="fa-regular fa-clock"></i> Lun–Dom · 11:00 AM–5:30 PM</div>
+      <div class="mt-8 flex flex-wrap items-center gap-3">
+        <div id="live-status-pill" class="status-pill status-pill-open">
+          <span class="status-dot"></span>
+          <span id="live-status-text">Abierto ahora</span>
+        </div>
+        <div class="flex items-center gap-2 text-xs sm:text-sm text-[var(--cream)]/80">
+          <i class="fa-regular fa-clock text-[var(--lime)]"></i> Lun–Dom · 11:00 AM–5:30 PM
+        </div>
       </div>
     </div>
 
@@ -1033,6 +1047,46 @@
         reservaCardWrapper.classList.remove("hidden");
       });
     }
+
+    // ===== INDICADOR DE ESTADO EN VIVO (HORARIO) =====
+    const updateRestaurantStatus = () => {
+      const pill = document.getElementById("live-status-pill");
+      const text = document.getElementById("live-status-text");
+      if (!pill || !text) return;
+
+      try {
+        // Hora actual en la zona de Lima (UTC-5)
+        const now = new Date();
+        const peruTimeStr = now.toLocaleTimeString("en-US", { timeZone: "America/Lima", hour12: false });
+        const [hoursStr, minutesStr] = peruTimeStr.split(":");
+        const hours = parseInt(hoursStr, 10);
+        const minutes = parseInt(minutesStr, 10);
+        const currentMin = hours * 60 + minutes;
+
+        const openMin = 11 * 60; // 11:00 AM
+        const closeMin = 17 * 60 + 30; // 05:30 PM
+
+        const isOpen = currentMin >= openMin && currentMin <= closeMin;
+
+        if (isOpen) {
+          pill.className = "status-pill status-pill-open";
+          text.textContent = "Abierto ahora · Atendiendo";
+        } else {
+          pill.className = "status-pill status-pill-closed";
+          text.textContent = "Cerrado por hoy · Abre 11:00 AM";
+        }
+      } catch (e) {
+        // Fallback usando hora local del dispositivo
+        const now = new Date();
+        const currentMin = now.getHours() * 60 + now.getMinutes();
+        const isOpen = currentMin >= 660 && currentMin <= 1050;
+        pill.className = isOpen ? "status-pill status-pill-open" : "status-pill status-pill-closed";
+        text.textContent = isOpen ? "Abierto ahora · Atendiendo" : "Cerrado por hoy · Abre 11:00 AM";
+      }
+    };
+
+    updateRestaurantStatus();
+    setInterval(updateRestaurantStatus, 60000); // Actualizar cada minuto
 
     renderCart();
     renderPaymentInstructions();

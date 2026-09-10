@@ -44,7 +44,105 @@
     display:block; 
     width:100%; 
     height:60px; 
-}
+  }
+
+  /* ====== BADGE DE HORARIO EN VIVO ====== */
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
+  }
+  .status-pill-open {
+    background: rgba(16, 185, 129, 0.2);
+    border: 1px solid rgba(52, 211, 153, 0.4);
+    color: #6EE7B7;
+  }
+  .status-pill-closed {
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(248, 113, 113, 0.4);
+    color: #FCA5A5;
+  }
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .status-pill-open .status-dot {
+    background: #10B981;
+    box-shadow: 0 0 10px #10B981;
+    animation: pulseDot 2s infinite ease-in-out;
+  }
+  .status-pill-closed .status-dot {
+    background: #EF4444;
+    box-shadow: 0 0 6px #EF4444;
+  }
+  @keyframes pulseDot {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.35);
+      opacity: 0.6;
+    }
+  }
+
+  /* ====== MICRO-ANIMACIONES AL AGREGAR AL CARRITO ====== */
+  .cart-badge-bounce {
+    animation: cartBounce 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  @keyframes cartBounce {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.45); }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+  }
+
+  .btn-added-pop {
+    background: #10B981 !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 18px -4px rgba(16, 185, 129, 0.55) !important;
+    transform: scale(1.04);
+    transition: all 0.2s ease !important;
+  }
+
+  .cart-floating-plus {
+    position: fixed;
+    pointer-events: none;
+    z-index: 100;
+    background: var(--coral);
+    color: #ffffff;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 4px 9px;
+    border-radius: 999px;
+    box-shadow: 0 4px 14px rgba(232, 85, 44, 0.45);
+    animation: floatUpFade 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  @keyframes floatUpFade {
+    0% {
+      opacity: 1;
+      transform: translateY(0) scale(0.8);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-28px) scale(1.15);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-50px) scale(0.9);
+    }
+  }
+
 
   .price-tag{
     font-family:'JetBrains Mono',monospace; 
@@ -471,20 +569,22 @@
   }
   .whatsapp-btn:hover{ transform:translateY(-2px) scale(1.02); box-shadow:0 12px 26px -6px rgba(232,85,44,.6); }
   .float-wa{
-    position:fixed; right:20px; bottom:20px; z-index:50; width:58px; height:58px;
-    border-radius:50%; background:var(--coral); color:#fff; display:flex; align-items:center;
-    justify-content:center; font-size:1.5rem; box-shadow:0 10px 24px -6px rgba(232,85,44,.55);
+    position:fixed; right:20px; bottom:20px; z-index:50; width:56px; height:56px;
+    border-radius:50%; background:#25D366; color:#fff; display:flex; align-items:center;
+    justify-content:center; font-size:1.5rem; box-shadow:0 10px 24px -6px rgba(37,211,102,.5);
     animation:pulseWA 2.6s ease-in-out infinite;
+    transition: transform .2s ease;
   }
+  .float-wa:hover{ transform: scale(1.08); }
   .float-wa .float-count{
     position:absolute; top:-6px; right:-6px; background:var(--lime); color:var(--ink);
     width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center;
     font-weight:700; font-size:.75rem; box-shadow:0 4px 8px rgba(0,0,0,.12);
   }
-  .float-wa i{ font-size:1.2rem; }
+  .float-wa i{ font-size:1.4rem; }
   @keyframes pulseWA{
-    0%,100%{ box-shadow:0 10px 24px -6px rgba(232,85,44,.55); }
-    50%{ box-shadow:0 10px 30px -2px rgba(232,85,44,.85); }
+    0%,100%{ box-shadow:0 10px 24px -6px rgba(37,211,102,.5); }
+    50%{ box-shadow:0 10px 30px -2px rgba(37,211,102,.8); }
   }
   .hero-texture{
     background-image:radial-gradient(circle at 20% 20%,rgba(255,255,255,.06) 0,transparent 40%),

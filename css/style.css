@@ -235,6 +235,98 @@
      transform:translateY(-1px);
     }
 
+  .menu-no-image-section{
+    margin-top:2.5rem;
+    padding:1.5rem;
+    border:1px solid rgba(14,59,77,.12);
+    border-radius:24px;
+    background:linear-gradient(135deg,rgba(255,255,255,.76),rgba(255,255,255,.32));
+  }
+  .menu-no-image-heading{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:1rem;
+    margin-bottom:1rem;
+  }
+  .menu-no-image-kicker{
+    color:var(--coral);
+    font-size:.68rem;
+    font-weight:700;
+    letter-spacing:.13em;
+    text-transform:uppercase;
+    white-space:nowrap;
+  }
+  .menu-no-image-heading h3{
+    color:var(--ocean);
+    font-size:clamp(1.45rem,2.2vw,2rem);
+    margin:0;
+  }
+  .menu-no-image-heading p{
+    color:rgba(30,36,34,.62);
+    font-size:.78rem;
+    margin:0;
+    max-width:34rem;
+  }
+  .menu-no-image-list{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:.7rem;
+  }
+  .menu-no-image-item{
+    align-items:center;
+    background:rgba(255,255,255,.72);
+    border:1px solid rgba(30,36,34,.08);
+    border-radius:16px;
+    display:grid;
+    gap:.8rem;
+    grid-template-columns:minmax(0,1fr) auto auto;
+    padding:.85rem 1rem;
+    transition:transform .2s ease,box-shadow .2s ease;
+  }
+  .menu-no-image-item:hover{
+    box-shadow:0 12px 24px -18px rgba(14,59,77,.5);
+    transform:translateY(-2px);
+  }
+  .menu-no-image-item > div{
+    align-items:flex-start;
+    display:flex;
+    gap:.7rem;
+    min-width:0;
+  }
+  .menu-no-image-number{
+    color:var(--coral);
+    font-family:'JetBrains Mono',monospace;
+    font-size:.68rem;
+    font-weight:700;
+    padding-top:.25rem;
+  }
+  .menu-no-image-item h4{
+    color:var(--ink);
+    font-family:'Fraunces',serif;
+    font-size:1.05rem;
+    line-height:1.15;
+    margin:0;
+  }
+  .menu-no-image-item p{
+    color:rgba(30,36,34,.62);
+    font-size:.76rem;
+    line-height:1.35;
+    margin:.3rem 0 0;
+  }
+  .menu-no-image-item .menu-action{
+    padding:.45rem .7rem;
+    white-space:nowrap;
+    width:auto;
+  }
+  @media (max-width:767px){
+    .menu-no-image-section{ margin-top:2rem; padding:1rem; }
+    .menu-no-image-heading{ align-items:flex-start; flex-direction:column; gap:.35rem; }
+    .menu-no-image-list{ grid-template-columns:1fr; }
+    .menu-no-image-item{ grid-template-columns:minmax(0,1fr) auto; }
+    .menu-no-image-item .menu-action{ grid-column:1 / -1; width:100%; }
+  }
+
   .cart-button{ 
     align-items:center; 
     background:var(--ink);
@@ -746,5 +838,4 @@
       transform: scale(1);
     }
   }
-
 

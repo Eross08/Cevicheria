@@ -22,25 +22,30 @@
   <div class="max-w-6xl mx-auto px-5 sm:px-8 py-4 flex items-center justify-between">
     <div class="flex items-center gap-2">
       <i class="fa-solid fa-fish text-[var(--coral)] text-xl"></i>
-      <span class="font-display font-700 text-2xl tracking-tight" style="font-weight:700;">La Esquina de Augusto</span>
+      <span class="font-display font-700 text-2xl tracking-tight nav-brand-name" style="font-weight:700;">
+        <span class="nav-brand-full">La Esquina de Augusto</span>
+        <span class="nav-brand-compact">La Esquina</span>
+      </span>
     </div>
     <nav class="hidden md:flex items-center gap-8 text-sm font-medium" aria-label="Navegación principal">
       <a href="#entradas" class="nav-link">Entradas</a>
       <a href="#platos" class="nav-link">Platos</a>
       <a href="#bebidas" class="nav-link">Bebidas</a>
-      <a href="#pagos" class="nav-link">Pagos</a>
-      <button type="button" id="nav-link-reservas" class="nav-link text-sm font-medium cursor-pointer">Reservas</button>
     </nav>
     <div class="flex items-center gap-3">
       <a href="https://maps.app.goo.gl/1ompmkqSmNhu8jMaA" target="_blank" rel="noopener"
          class="nav-location-btn flex items-center gap-1.5 text-xs sm:text-sm font-semibold px-3 py-2 rounded-full border border-black/10 bg-white/70 hover:bg-white text-[var(--ink)] transition-all shadow-sm"
          aria-label="Ver ubicación en Google Maps (Jr. Mariscal Castilla 568, La Perla, Callao)">
         <i class="fa-solid fa-location-dot text-[var(--coral)] text-sm sm:text-base"></i>
-        <span class="hidden sm:inline text-xs font-medium">La Perla, Callao</span>
+        <span class="text-xs font-medium">Cómo llegar</span>
       </a>
-      <button id="cart-toggle" type="button" class="cart-button" aria-controls="cart-panel" aria-expanded="false">
+      <button type="button" id="nav-link-reservas" class="nav-reserve-btn" aria-label="Reservar una mesa">
+        <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
+        <span>Reservar</span>
+      </button>
+      <button id="cart-toggle" type="button" class="cart-button" aria-label="Ver pedido" aria-controls="cart-panel" aria-expanded="false">
         <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
-        <span>Carrito</span><span id="cart-count" class="cart-count">0</span>
+        <span class="cart-button-label">Pedir</span><span id="cart-count" class="cart-count">0</span>
       </button>
       <button id="mobile-menu-toggle" type="button" class="mobile-menu-toggle" aria-controls="mobile-nav" aria-expanded="false" aria-label="Abrir menú">
         <i class="fa-solid fa-bars" aria-hidden="true"></i>
@@ -52,9 +57,6 @@
     <a href="#platos" class="nav-link">Platos</a>
     <a href="#bebidas" class="nav-link">Bebidas</a>
     <a href="#pagos" class="nav-link">Pagos</a>
-    <button type="button" id="mobile-nav-reservas" class="nav-link text-left w-full cursor-pointer font-semibold text-[var(--coral)] flex items-center gap-2">
-      <i class="fa-regular fa-calendar-check"></i> Reservar Mesa
-    </button>
     <a href="https://maps.app.goo.gl/1ompmkqSmNhu8jMaA" target="_blank" rel="noopener" class="nav-link text-left w-full flex items-center gap-2">
       <i class="fa-solid fa-location-dot text-[var(--coral)]"></i> Jr. Mariscal Castilla 568, Callao
     </a>
@@ -568,12 +570,19 @@
     </button>
   </div>
   <div id="cart-items" class="cart-items" aria-live="polite"></div>
-  <div class="border-t border-black/10 pt-4 mt-auto">
+  <div class="cart-checkout border-t border-black/10 pt-4 mt-auto">
     <div class="flex items-center justify-between font-semibold mb-4">
       <span>Total</span><span id="cart-total" class="price-tag">S/ 0.00</span>
     </div>
-    <fieldset class="payment-options">
-      <legend class="font-semibold mb-2">Método de pago</legend>
+  <p class="cart-followup-note">
+    Enviaremos tu pedido por WhatsApp. El restaurante confirmará la disponibilidad y el total antes del pago.
+  </p>
+  <label for="cart-notes" class="cart-notes-label">Preferencias o consultas (opcional)</label>
+  <textarea id="cart-notes" class="cart-notes-field" rows="2" maxlength="500"
+    placeholder="Cuéntanos si tienes alguna preferencia o consulta sobre ingredientes."></textarea>
+  <p class="cart-notes-hint">Si tienes una alergia, indícala y confírmala directamente con el restaurante.</p>
+  <fieldset class="payment-options">
+      <legend class="font-semibold mb-2">Método de pago preferido</legend>
       <label class="payment-option payment-option-yape">
         <input type="radio" name="cart-payment" value="Yape" checked>
         <span><i class="fa-solid fa-qrcode payment-icon-yape" aria-hidden="true"></i> Yape</span>
@@ -590,13 +599,13 @@
     <div id="cart-payment-qr" class="cart-payment-qr" aria-live="polite"></div>
     <div id="payment-instructions" class="payment-instructions"></div>
     <button id="cart-order" type="button" class="whatsapp-btn w-full text-white font-semibold px-4 py-3 rounded-full flex items-center justify-center gap-2">
-      <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Pedir por WhatsApp
+      <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Enviar pedido por WhatsApp
     </button>
   </div>
 </aside>
 
 <!-- AVISO DE PRIVACIDAD -->
-<section id="privacidad" class="scroll-mt-24 py-14 md:py-16" style="background:#F2ECDC;" aria-labelledby="privacy-title">
+<section id="privacidad" class="py-14 md:py-16" style="background:#F2ECDC;" aria-labelledby="privacy-title">
   <div class="max-w-4xl mx-auto px-5 sm:px-8">
     <p class="eyebrow mb-2">Transparencia y confianza</p>
     <h2 id="privacy-title" class="font-display text-3xl md:text-4xl font-700" style="font-weight:700;">Tu información, con respeto</h2>
@@ -751,9 +760,53 @@
       </div>`).join("");
 
     document.getElementById("year").textContent = new Date().getFullYear();
-    AOS.init({ duration:700, once:true, offset:40 });
+    AOS.init({
+      duration:650,
+      easing:"ease-out-cubic",
+      once:true,
+      offset:40,
+      disable:window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    });
 
-    const cart = [];
+    const CART_STORAGE_KEY = "la-esquina-augusto-cart";
+    const emptyCartState = { items: [], notes: "", payment: "Yape" };
+    const loadCartState = () => {
+      try {
+        const storedState = localStorage.getItem(CART_STORAGE_KEY);
+        if (!storedState) return emptyCartState;
+
+        const parsedState = JSON.parse(storedState);
+        if (!parsedState || !Array.isArray(parsedState.items)) {
+          console.warn("El pedido guardado no tiene un formato válido; se iniciará un carrito vacío.");
+          return emptyCartState;
+        }
+
+        const items = parsedState.items.filter((item) =>
+          item &&
+          typeof item.name === "string" &&
+          item.name.trim().length > 0 &&
+          item.name.length <= 120 &&
+          Number.isFinite(item.price) &&
+          item.price >= 0 &&
+          Number.isInteger(item.quantity) &&
+          item.quantity > 0
+        );
+        if (items.length !== parsedState.items.length) {
+          console.warn("Se omitieron productos inválidos del pedido guardado.");
+        }
+
+        return {
+          items,
+          notes: typeof parsedState.notes === "string" ? parsedState.notes.slice(0, 500) : "",
+          payment: ["Yape", "Lemon", "Efectivo"].includes(parsedState.payment) ? parsedState.payment : "Yape"
+        };
+      } catch (error) {
+        console.warn("No se pudo recuperar el pedido guardado.", error);
+        return emptyCartState;
+      }
+    };
+    const savedCartState = loadCartState();
+    const cart = savedCartState.items;
     const cartPanel = document.getElementById("cart-panel");
     const cartOverlay = document.getElementById("cart-overlay");
     const cartCount = document.getElementById("cart-count");
@@ -765,6 +818,29 @@
     const waFloat = document.getElementById("wa-float");
     const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
     const mobileNav = document.getElementById("mobile-nav");
+    const cartNotes = document.getElementById("cart-notes");
+    cartNotes.value = savedCartState.notes;
+    document.querySelector(`input[name="cart-payment"][value="${savedCartState.payment}"]`).checked = true;
+
+    const saveCartState = () => {
+      try {
+        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify({
+          items: cart,
+          notes: cartNotes.value,
+          payment: document.querySelector('input[name="cart-payment"]:checked').value
+        }));
+      } catch (error) {
+        console.warn("No se pudo guardar el pedido en este navegador.", error);
+      }
+    };
+
+    const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[character]);
 
     const setMobileMenuOpen = (isOpen) => {
       mobileNav.hidden = !isOpen;
@@ -779,9 +855,9 @@
         cartPaymentQr.innerHTML = `
           <p class="cart-payment-label">Comprobante del pedido</p>
           <div class="payment-instructions" style="margin:0; background:rgba(20,123,132,.12); color:var(--ink);">
-            <i class="fa-solid fa-receipt" aria-hidden="true"></i> Paga al recibir el pedido y se te entregará un comprobante del total.
+            <i class="fa-solid fa-receipt" aria-hidden="true"></i> Paga al recibir el pedido, una vez confirmados la disponibilidad y el total.
           </div>`;
-        paymentInstructions.innerHTML = '<i class="fa-solid fa-money-bill-wave" aria-hidden="true"></i> Pago en efectivo al recibir el pedido';
+        paymentInstructions.innerHTML = '<i class="fa-solid fa-money-bill-wave" aria-hidden="true"></i> Pago en efectivo al recibir el pedido, después de confirmar.';
         return;
       }
 
@@ -794,24 +870,23 @@
              loading="lazy" decoding="async" class="qr-tap"
              onerror="this.onerror=null; this.alt='QR de ${payment} no disponible'; this.hidden=true; this.nextElementSibling.hidden=false;">
         <p hidden>No se encontró el QR de ${payment}. Verifica el archivo ${paymentData.qr}.</p>`;
-      paymentInstructions.innerHTML = payment === "Yape" || payment === "Lemon"
-        ? '<i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Envía el comprobante de pago después de realizar la transferencia.'
-        : '<i class="fa-solid fa-wallet" aria-hidden="true"></i> Escanea o transfiere directo';
+      paymentInstructions.innerHTML = '<i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Espera la confirmación de disponibilidad y total antes de pagar. Después, envía el comprobante.';
     };
 
     const renderCart = () => {
       const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
       const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      saveCartState();
       cartCount.textContent = itemCount;
       cartTotal.textContent = soles(total);
       cartItems.innerHTML = cart.length ? cart.map((item) => `
         <div class="cart-item">
-          <div><strong>${item.name}</strong><small>${soles(item.price)} c/u</small></div>
+          <div><strong>${escapeHtml(item.name)}</strong><small>${soles(item.price)} c/u</small></div>
           <div class="cart-item-controls">
-            <button type="button" class="quantity-button" data-cart-action="decrease" data-cart-name="${item.name}" aria-label="Disminuir ${item.name}">−</button>
+            <button type="button" class="quantity-button" data-cart-action="decrease" data-cart-name="${escapeHtml(item.name)}" aria-label="Disminuir ${escapeHtml(item.name)}">−</button>
             <span>${item.quantity}</span>
-            <button type="button" class="quantity-button" data-cart-action="increase" data-cart-name="${item.name}" aria-label="Aumentar ${item.name}">+</button>
-            <button type="button" class="remove-button" data-cart-action="remove" data-cart-name="${item.name}" aria-label="Eliminar ${item.name}"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+            <button type="button" class="quantity-button" data-cart-action="increase" data-cart-name="${escapeHtml(item.name)}" aria-label="Aumentar ${escapeHtml(item.name)}">+</button>
+            <button type="button" class="remove-button" data-cart-action="remove" data-cart-name="${escapeHtml(item.name)}" aria-label="Eliminar ${escapeHtml(item.name)}"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
           </div>
         </div>`).join("") : '<p class="cart-empty">Aún no agregas productos.</p>';
       updateFloatAction(itemCount);
@@ -899,19 +974,27 @@
     document.getElementById("cart-close").addEventListener("click", () => setCartOpen(false));
     cartOverlay.addEventListener("click", () => setCartOpen(false));
     document.querySelectorAll('input[name="cart-payment"]').forEach((input) => {
-      input.addEventListener("change", renderPaymentInstructions);
+      input.addEventListener("change", () => {
+        renderPaymentInstructions();
+        saveCartState();
+      });
     });
+    cartNotes.addEventListener("input", saveCartState);
     document.getElementById("cart-order").addEventListener("click", () => {
       if (!cart.length) return;
       const order = cart.map((item) => `${item.quantity} x ${item.name} (${soles(item.price * item.quantity)})`).join("\n");
       const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
       const payment = document.querySelector('input[name="cart-payment"]:checked').value;
+      const notes = cartNotes.value.trim();
       const paymentMessage = payment === "Yape"
-        ? "Pagaré por Yape y enviaré el comprobante de pago."
+        ? "Esperaré la confirmación de disponibilidad y total antes de pagar por Yape; luego enviaré el comprobante."
         : payment === "Lemon"
-          ? "Pagaré por Lemon y enviaré el comprobante de pago."
-          : "Pagaré en efectivo al recibir el pedido y me entregarán un comprobante del total.";
-      window.open(`https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(`Hola Augusto, quiero pedir:\n${order}\nTotal: ${soles(total)}\nMétodo de pago: ${payment}\n${paymentMessage}`)}`, "_blank", "noopener");
+          ? "Esperaré la confirmación de disponibilidad y total antes de pagar por Lemon; luego enviaré el comprobante."
+          : "Pagaré en efectivo al recibir el pedido, después de confirmar disponibilidad y total.";
+      const notesMessage = notes
+        ? `\nPreferencias o consultas: ${notes}\nPor favor, confirma directamente cualquier solicitud especial o alergia.`
+        : "";
+      window.open(`https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(`Hola Augusto, quiero pedir:\n${order}\nTotal referencial: ${soles(total)}\nMétodo de pago preferido: ${payment}\n${paymentMessage}${notesMessage}`)}`, "_blank", "noopener");
     });
     // ===== LÓGICA DEL MODAL Y RESERVAS CON SUPABASE =====
     const reservaModal = document.getElementById("reserva-modal");
@@ -951,14 +1034,6 @@
       const btn = document.getElementById(id);
       if (btn) btn.addEventListener("click", openReservaModal);
     });
-
-    const mobileNavReservas = document.getElementById("mobile-nav-reservas");
-    if (mobileNavReservas) {
-      mobileNavReservas.addEventListener("click", () => {
-        setMobileMenuOpen(false);
-        openReservaModal();
-      });
-    }
 
     if (reservaModalClose) {
       reservaModalClose.addEventListener("click", closeReservaModal);

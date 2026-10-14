@@ -20,19 +20,18 @@
 <!-- NAV -->
 <header class="sticky top-0 z-40 backdrop-blur bg-[var(--cream)]/90 border-b border-black/5">
   <div class="max-w-6xl mx-auto px-5 sm:px-8 py-4 flex items-center justify-between">
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2 nav-brand">
       <i class="fa-solid fa-fish text-[var(--coral)] text-xl"></i>
       <span class="font-display font-700 text-2xl tracking-tight nav-brand-name" style="font-weight:700;">
-        <span class="nav-brand-full">La Esquina de Augusto</span>
-        <span class="nav-brand-compact">La Esquina</span>
+        <span>La Esquina</span> <span class="nav-brand-secondline">de Augusto</span>
       </span>
     </div>
-    <nav class="hidden md:flex items-center gap-8 text-sm font-medium" aria-label="Navegación principal">
+    <nav class="hidden lg:flex items-center gap-8 text-sm font-medium" aria-label="Navegación principal">
       <a href="#entradas" class="nav-link">Entradas</a>
       <a href="#platos" class="nav-link">Platos</a>
       <a href="#bebidas" class="nav-link">Bebidas</a>
     </nav>
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-3 nav-actions">
       <a href="https://maps.app.goo.gl/1ompmkqSmNhu8jMaA" target="_blank" rel="noopener"
          class="nav-location-btn flex items-center gap-1.5 text-xs sm:text-sm font-semibold px-3 py-2 rounded-full border border-black/10 bg-white/70 hover:bg-white text-[var(--ink)] transition-all shadow-sm"
          aria-label="Ver ubicación en Google Maps (Jr. Mariscal Castilla 568, La Perla, Callao)">
@@ -67,7 +66,7 @@
 <section class="relative overflow-hidden text-[var(--cream)]" style="background:linear-gradient(160deg, var(--ocean) 0%, #0A2C3A 100%);">
   <div class="hero-texture absolute inset-0"></div>
   <div class="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-24 md:pt-24 md:pb-32 relative z-10 grid md:grid-cols-2 gap-10 items-center">
-    <div data-aos="fade-up">
+    <div class="hero-copy" data-aos="fade-up">
       <p class="eyebrow mb-4">La Perla · Callao · Cocina marina</p>
       <h1 class="font-display leading-[0.95] text-5xl sm:text-6xl md:text-7xl font-900" style="font-weight:900;">
         Ceviche recién<br> cortado, <span style="color:var(--lime);">al toque.</span>
@@ -99,7 +98,7 @@
     <div class="relative" data-aos="fade-left" data-aos-delay="150">
       <div class="rounded-2xl overflow-hidden ticket-edge shadow-2xl rotate-1">
         <img src="platos-img/ceviche.jpg" width="1200" height="800"
-             alt="Ceviche peruano servido en un plato" class="w-full h-[420px] object-cover" decoding="async">
+             alt="Ceviche peruano servido en un plato" class="hero-image w-full object-cover" decoding="async">
       </div>
       <div class="absolute -bottom-5 -left-5 bg-[var(--coral)] text-white font-display font-700 rounded-xl px-5 py-3 shadow-xl -rotate-2 text-sm" style="font-weight:700;">
         100% pescado del día
@@ -571,33 +570,35 @@
   </div>
   <div id="cart-items" class="cart-items" aria-live="polite"></div>
   <div class="cart-checkout border-t border-black/10 pt-4 mt-auto">
-    <div class="flex items-center justify-between font-semibold mb-4">
-      <span>Total</span><span id="cart-total" class="price-tag">S/ 0.00</span>
+    <div class="cart-checkout-details">
+      <div class="flex items-center justify-between font-semibold mb-4">
+        <span>Total</span><span id="cart-total" class="price-tag">S/ 0.00</span>
+      </div>
+      <p class="cart-followup-note">
+        Enviaremos tu pedido por WhatsApp. El restaurante confirmará la disponibilidad y el total antes del pago.
+      </p>
+      <label for="cart-notes" class="cart-notes-label">Preferencias o consultas (opcional)</label>
+      <textarea id="cart-notes" class="cart-notes-field" rows="2" maxlength="500"
+                placeholder="Cuéntanos si tienes alguna preferencia o consulta sobre ingredientes."></textarea>
+      <p class="cart-notes-hint">Si tienes una alergia, indícala y confírmala directamente con el restaurante.</p>
+      <fieldset class="payment-options">
+        <legend class="font-semibold mb-2">Método de pago preferido</legend>
+        <label class="payment-option payment-option-yape">
+          <input type="radio" name="cart-payment" value="Yape" checked>
+          <span><i class="fa-solid fa-qrcode payment-icon-yape" aria-hidden="true"></i> Yape</span>
+        </label>
+        <label class="payment-option payment-option-lemon">
+          <input type="radio" name="cart-payment" value="Lemon">
+          <span><i class="fa-solid fa-lemon payment-icon-lemon" aria-hidden="true"></i> Lemon</span>
+        </label>
+        <label class="payment-option payment-option-efectivo">
+          <input type="radio" name="cart-payment" value="Efectivo">
+          <span><i class="fa-solid fa-money-bill-wave payment-icon-efectivo" aria-hidden="true"></i> Efectivo</span>
+        </label>
+      </fieldset>
+      <div id="cart-payment-qr" class="cart-payment-qr" aria-live="polite"></div>
+      <div id="payment-instructions" class="payment-instructions"></div>
     </div>
-  <p class="cart-followup-note">
-    Enviaremos tu pedido por WhatsApp. El restaurante confirmará la disponibilidad y el total antes del pago.
-  </p>
-  <label for="cart-notes" class="cart-notes-label">Preferencias o consultas (opcional)</label>
-  <textarea id="cart-notes" class="cart-notes-field" rows="2" maxlength="500"
-    placeholder="Cuéntanos si tienes alguna preferencia o consulta sobre ingredientes."></textarea>
-  <p class="cart-notes-hint">Si tienes una alergia, indícala y confírmala directamente con el restaurante.</p>
-  <fieldset class="payment-options">
-      <legend class="font-semibold mb-2">Método de pago preferido</legend>
-      <label class="payment-option payment-option-yape">
-        <input type="radio" name="cart-payment" value="Yape" checked>
-        <span><i class="fa-solid fa-qrcode payment-icon-yape" aria-hidden="true"></i> Yape</span>
-      </label>
-      <label class="payment-option payment-option-lemon">
-        <input type="radio" name="cart-payment" value="Lemon">
-        <span><i class="fa-solid fa-lemon payment-icon-lemon" aria-hidden="true"></i> Lemon</span>
-      </label>
-      <label class="payment-option payment-option-efectivo">
-        <input type="radio" name="cart-payment" value="Efectivo">
-        <span><i class="fa-solid fa-money-bill-wave payment-icon-efectivo" aria-hidden="true"></i> Efectivo</span>
-      </label>
-    </fieldset>
-    <div id="cart-payment-qr" class="cart-payment-qr" aria-live="polite"></div>
-    <div id="payment-instructions" class="payment-instructions"></div>
     <button id="cart-order" type="button" class="whatsapp-btn w-full text-white font-semibold px-4 py-3 rounded-full flex items-center justify-center gap-2">
       <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Enviar pedido por WhatsApp
     </button>
